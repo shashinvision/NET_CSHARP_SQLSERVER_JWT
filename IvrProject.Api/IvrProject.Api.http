@@ -1,0 +1,6 @@
+@IvrProject.Api_HostAddress = http://localhost:5093
+
+GET {{IvrProject.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
