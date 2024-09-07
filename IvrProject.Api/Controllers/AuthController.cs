@@ -33,7 +33,7 @@ public class AuthController : ControllerBase
         catch (System.Exception ex)
         {
 
-            return Unauthorized("Error: " + ex.Message);
+            return BadRequest("Error try login");
         }
 
     }

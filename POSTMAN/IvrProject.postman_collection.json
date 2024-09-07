@@ -1,0 +1,903 @@
+{
+	"info": {
+		"_postman_id": "033359d4-9337-4e2f-9c17-9188e4c3db79",
+		"name": "IvrProject",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7896082"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"admin@admin.cl\",\n  \"password\": \"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5093/api/Auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5093",
+							"path": [
+								"api",
+								"Auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"admin@admin.cl\",\n  \"password\": \"123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5093/api/Auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5093",
+									"path": [
+										"api",
+										"Auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 07 Sep 2024 11:14:32 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"user_jwt\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwianRpIjoiNzFhNmFiODQtYWEzZi00OTcwLWJmMDItNzI1MzMzYmRkODk1IiwidW5pcXVlX25hbWUiOiJhZG1pbkBhZG1pbi5jbCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjIiLCJleHAiOjE3MjU3MDk0NzMsImlzcyI6InlvdXJJc3N1ZXIxMjMiLCJhdWQiOiJ5b3VyQXVkaWVuY2UxMjMifQ.UrqI9bHAD9taC8k-IHP-9kfi11tXudpbdhAoBjdtuoM\",\n    \"refreshToken\": \"829f3797-a4d4-4774-82d4-999077d30109\"\n}"
+						}
+					]
+				},
+				{
+					"name": "RefreshToken",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"refreshToken\": \"946391de-a553-4fcb-8648-12f20f52d76c\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5093/api/Auth/refreshtoken",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5093",
+							"path": [
+								"api",
+								"Auth",
+								"refreshtoken"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"refreshToken\": \"946391de-a553-4fcb-8648-12f20f52d76c\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5093/api/Auth/refreshtoken",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5093",
+									"path": [
+										"api",
+										"Auth",
+										"refreshtoken"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 07 Sep 2024 13:10:46 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"user_jwt\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwianRpIjoiMTRhYjlkNGYtYTU3Zi00NjYzLWI1M2EtY2I1N2EyZjA3NjVlIiwidW5pcXVlX25hbWUiOiJhZG1pbkBhZG1pbi5jbCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjIiLCJleHAiOjE3MjU3MTY0NDcsImlzcyI6InlvdXJJc3N1ZXIxMjMiLCJhdWQiOiJ5b3VyQXVkaWVuY2UxMjMifQ.KHgo3Ny5fNrWz0eOq4-3_G3WdRJJ9ZuTALXd1hlA7q0\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "get Users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwianRpIjoiMWY5Y2ViYTEtYzhmMi00NjE4LThjNDYtYzdkYTFkZTVhMjkyIiwidW5pcXVlX25hbWUiOiJhZG1pbkBhZG1pbi5jbCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjIiLCJleHAiOjE3MjU3MTk0MzcsImlzcyI6InlvdXJJc3N1ZXIxMjMiLCJhdWQiOiJ5b3VyQXVkaWVuY2UxMjMifQ.aK0rltTFyGeaEtmS3BSpfUrCupz8Eqto2eF3aXD6ck8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"admin@admin.cl\",\n  \"password\": \"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5093/api/User/Users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5093",
+							"path": [
+								"api",
+								"User",
+								"Users"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get Users",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"admin@admin.cl\",\n  \"password\": \"123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5093/api/User/Users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5093",
+									"path": [
+										"api",
+										"User",
+										"Users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 07 Sep 2024 13:19:18 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"admin@admin.cl\",\n        \"role_id\": 2,\n        \"rol_name\": \"admin\",\n        \"status\": 1\n    },\n    {\n        \"id\": 11,\n        \"name\": \"supervisor@example.cl\",\n        \"role_id\": 3,\n        \"rol_name\": \"supervisor\",\n        \"status\": 1\n    },\n    {\n        \"id\": 13,\n        \"name\": \"user@example.net\",\n        \"role_id\": 4,\n        \"rol_name\": \"user\",\n        \"status\": 1\n    },\n    {\n        \"id\": 14,\n        \"name\": \"user2@example.cl\",\n        \"role_id\": 4,\n        \"rol_name\": \"user\",\n        \"status\": 1\n    },\n    {\n        \"id\": 15,\n        \"name\": \"user3@example.cl\",\n        \"role_id\": 4,\n        \"rol_name\": \"user\",\n        \"status\": 1\n    },\n    {\n        \"id\": 16,\n        \"name\": \"user4@example.cl\",\n        \"role_id\": 4,\n        \"rol_name\": \"user\",\n        \"status\": 1\n    },\n    {\n        \"id\": 1016,\n        \"name\": \"supervisor2@example.cl\",\n        \"role_id\": 3,\n        \"rol_name\": \"supervisor\",\n        \"status\": 1\n    },\n    {\n        \"id\": 1017,\n        \"name\": \"supervisor4@example.cl\",\n        \"role_id\": 3,\n        \"rol_name\": \"supervisor\",\n        \"status\": 1\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Add User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwianRpIjoiZjIwZjBiMGQtOTE1OC00MzRlLTkxYjctNTM2Yzc3YzdlNjIwIiwidW5pcXVlX25hbWUiOiJhZG1pbkBhZG1pbi5jbCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjIiLCJleHAiOjE3MjU3MTg1NTksImlzcyI6InlvdXJJc3N1ZXIxMjMiLCJhdWQiOiJ5b3VyQXVkaWVuY2UxMjMifQ.77VsewCol29rk8b3i56PgNsi6oSAhECNezeW5DqM040",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"felipe@felipe.cl\",\n  \"role_id\": 2,\n  \"password\": \"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5093/api/User/User",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5093",
+							"path": [
+								"api",
+								"User",
+								"User"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Add User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"felipe@felipe.cl\",\n  \"role_id\": 2,\n  \"password\": \"123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5093/api/User/User",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5093",
+									"path": [
+										"api",
+										"User",
+										"User"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 07 Sep 2024 13:52:23 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"name\": \"felipe@felipe.cl\",\n    \"role_id\": 2\n}"
+						}
+					]
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwianRpIjoiY2YyNTg4OWUtNWQ5Ni00MjFkLWE4MzctMzZiNmVlYjgxYTUxIiwidW5pcXVlX25hbWUiOiJhZG1pbkBhZG1pbi5jbCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjIiLCJleHAiOjE3MjU3MjEwMDcsImlzcyI6InlvdXJJc3N1ZXIxMjMiLCJhdWQiOiJ5b3VyQXVkaWVuY2UxMjMifQ.ZczOMO-rfK8cJAFuNMecGuT1ZU6Q6mwZb2N24wrHQuk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 2017,\n  \"name\": \"felipe@felipe.cl\",\n  \"role_id\": 2,\n  \"password\": \"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5093/api/User/User",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5093",
+							"path": [
+								"api",
+								"User",
+								"User"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update User",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": 2017,\n  \"name\": \"felipe@felipe.cl\",\n  \"role_id\": 3,\n  \"password\": \"123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5093/api/User/User",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5093",
+									"path": [
+										"api",
+										"User",
+										"User"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 07 Sep 2024 14:13:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 2017,\n    \"name\": \"felipe@felipe.cl\",\n    \"role_id\": 3,\n    \"rol_name\": \"supervisor\",\n    \"status\": 1\n}"
+						}
+					]
+				},
+				{
+					"name": "get User By ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwianRpIjoiMWY5Y2ViYTEtYzhmMi00NjE4LThjNDYtYzdkYTFkZTVhMjkyIiwidW5pcXVlX25hbWUiOiJhZG1pbkBhZG1pbi5jbCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjIiLCJleHAiOjE3MjU3MTk0MzcsImlzcyI6InlvdXJJc3N1ZXIxMjMiLCJhdWQiOiJ5b3VyQXVkaWVuY2UxMjMifQ.aK0rltTFyGeaEtmS3BSpfUrCupz8Eqto2eF3aXD6ck8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"admin@admin.cl\",\n  \"password\": \"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5093/api/User/UserId/15",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5093",
+							"path": [
+								"api",
+								"User",
+								"UserId",
+								"15"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get User",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"admin@admin.cl\",\n  \"password\": \"123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5093/api/User/User/15",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5093",
+									"path": [
+										"api",
+										"User",
+										"User",
+										"15"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 07 Sep 2024 13:23:13 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 15,\n    \"name\": \"user3@example.cl\",\n    \"role_id\": 4,\n    \"rol_name\": \"user\",\n    \"status\": 1\n}"
+						}
+					]
+				},
+				{
+					"name": "get User By Name",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwianRpIjoiMWY5Y2ViYTEtYzhmMi00NjE4LThjNDYtYzdkYTFkZTVhMjkyIiwidW5pcXVlX25hbWUiOiJhZG1pbkBhZG1pbi5jbCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjIiLCJleHAiOjE3MjU3MTk0MzcsImlzcyI6InlvdXJJc3N1ZXIxMjMiLCJhdWQiOiJ5b3VyQXVkaWVuY2UxMjMifQ.aK0rltTFyGeaEtmS3BSpfUrCupz8Eqto2eF3aXD6ck8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"admin@admin.cl\",\n  \"password\": \"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5093/api/User/UserName/admin@admin.cl",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5093",
+							"path": [
+								"api",
+								"User",
+								"UserName",
+								"admin@admin.cl"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get User",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"admin@admin.cl\",\n  \"password\": \"123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5093/api/User/User/15",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5093",
+									"path": [
+										"api",
+										"User",
+										"User",
+										"15"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 07 Sep 2024 13:23:13 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 15,\n    \"name\": \"user3@example.cl\",\n    \"role_id\": 4,\n    \"rol_name\": \"user\",\n    \"status\": 1\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwianRpIjoiMTUwZTViOWItY2ZkMi00NTQ0LWFiYzQtYzg2NTg2MTY0ODNlIiwidW5pcXVlX25hbWUiOiJhZG1pbkBhZG1pbi5jbCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjIiLCJleHAiOjE3MjU3MjE1ODEsImlzcyI6InlvdXJJc3N1ZXIxMjMiLCJhdWQiOiJ5b3VyQXVkaWVuY2UxMjMifQ.iaXK6OzvvVX5nKNfE6zNVaWbwmnXKnAIUgLzILiv-E0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5093/api/User/User/15",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5093",
+							"path": [
+								"api",
+								"User",
+								"User",
+								"15"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete User",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5093/api/User/User/15",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5093",
+									"path": [
+										"api",
+										"User",
+										"User",
+										"15"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 07 Sep 2024 14:38:22 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 15,\n    \"name\": \"user3@example.cl\",\n    \"role_id\": 4,\n    \"role_name\": \"user\",\n    \"status\": 0\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}

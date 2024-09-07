@@ -13,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddScoped<ICommService<User, UserDto, InsertedUserDto>, UsersService>();
+builder.Services.AddScoped<ICommService<UserAddDto, UserDto, InsertedUserDto>, UsersService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 

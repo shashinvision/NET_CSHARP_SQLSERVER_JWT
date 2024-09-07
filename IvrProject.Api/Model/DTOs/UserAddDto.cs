@@ -1,11 +1,11 @@
-namespace IvrProject.Api.Model.Entities;
+using System;
 
-public class User
+namespace IvrProject.Api.Model.DTOs;
+
+public class UserAddDto
 {
     public int id { get; set; }
     public string? name { get; set; }
     public int role_id { get; set; }
-    public string? role_name { get; set; }
     public string? password { get; set; }
-    public int status { get; set; }
 }

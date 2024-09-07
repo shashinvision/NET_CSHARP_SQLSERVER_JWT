@@ -13,21 +13,21 @@ namespace IvrProject.Api.Controllers;
 [Route("api/[controller]")]
 public class UserController : ControllerBase
 {
-    private readonly ICommService<User, UserDto, InsertedUserDto> _usersService;
+    private readonly ICommService<UserAddDto, UserDto, InsertedUserDto> _usersService;
 
-    public UserController(ICommService<User, UserDto, InsertedUserDto> usersService)
+    public UserController(ICommService<UserAddDto, UserDto, InsertedUserDto> usersService)
     {
         _usersService = usersService;
     }
 
-    [HttpGet("User")]
+    [HttpGet("Users")]
     public async Task<ActionResult<List<UserDto>>> GetUsers()
     {
         var users = await _usersService.Get();
         return Ok(users);
 
     }
-    [HttpGet("User/{id}")]
+    [HttpGet("UserId/{id}")]
     public async Task<ActionResult<UserDto>> GetUser(int id)
     {
 
@@ -42,14 +42,29 @@ public class UserController : ControllerBase
 
     }
 
+    [HttpGet("UserName/{name}")]
+    public async Task<ActionResult<UserDto>> GetUserByName(string name)
+    {
+
+        var user = await _usersService.GetByName(name);
+
+        if (user == null)
+        {
+            return BadRequest("User Not found");
+        }
+
+        return Ok(user);
+
+    }
+
     [Authorize(Roles = "2")]
     [HttpPost("User")]
-    public async Task<ActionResult<InsertedUserDto>> AddUser([FromBody] User newUser)
+    public async Task<ActionResult<InsertedUserDto>> AddUser([FromBody] UserAddDto userAddDto)
     {
 
         try
         {
-            var user = await _usersService.Add(newUser);
+            var user = await _usersService.Add(userAddDto);
 
             if (user == null)
             {
@@ -66,12 +81,12 @@ public class UserController : ControllerBase
 
     }
     [HttpPut("User")]
-    public async Task<ActionResult<UserDto>> UpdateUser([FromBody] User updateUser)
+    public async Task<ActionResult<UserDto>> UpdateUser([FromBody] UserAddDto userAddDto)
     {
 
         try
         {
-            var user = await _usersService.Update(updateUser);
+            var user = await _usersService.Update(userAddDto);
 
             if (user == null)
             {
@@ -91,14 +106,23 @@ public class UserController : ControllerBase
     public async Task<ActionResult<UserDto>> DeleteUser(int id)
     {
 
-        var user = await _usersService.Delete(id);
-
-        if (user == null)
+        try
         {
-            return BadRequest("User Not found");
-        }
+            var user = await _usersService.Delete(id);
 
-        return Ok(user);
+            if (user == null)
+            {
+                return BadRequest("User Not found");
+            }
+
+            return Ok(user);
+
+        }
+        catch (System.Exception)
+        {
+
+            return BadRequest("Error try delete user");
+        }
 
     }
 }

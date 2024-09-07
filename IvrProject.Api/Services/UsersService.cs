@@ -5,7 +5,7 @@ using IvrProject.Api.Interfaces;
 using IvrProject.Api.Repository;
 namespace IvrProject.Api.Services;
 
-public class UsersService : ICommService<User, UserDto, InsertedUserDto>
+public class UsersService : ICommService<UserAddDto, UserDto, InsertedUserDto>
 {
     private readonly UserRepository _userRepository;
     private readonly IConfiguration _configuration;
@@ -34,33 +34,33 @@ public class UsersService : ICommService<User, UserDto, InsertedUserDto>
 
         return users;
     }
-    public async Task<UserDto> GetByName(UserDto user)
+    public async Task<UserDto> GetByName(string userName)
     {
-        UserDto users = await _userRepository.GetUserByName(user);
+        UserDto users = await _userRepository.GetUserByName(userName);
 
         return users;
     }
 
-    public async Task<InsertedUserDto> Add(User user)
+    public async Task<InsertedUserDto> Add(UserAddDto userAddDto)
     {
         UserDto userDto = new UserDto()
         {
-            name = user.name,
-            role_id = user.role_id
+            name = userAddDto.name,
+            role_id = userAddDto.role_id
         };
 
-        var userFound = await GetByName(userDto);
+        var userFound = await GetByName(userDto.name);
 
         if (userFound != null) return null!;
 
-        InsertedUserDto userAdd = await _userRepository.AddUser(user);
+        InsertedUserDto userAdd = await _userRepository.AddUser(userAddDto);
 
         return userAdd;
     }
 
-    public async Task<UserDto> Update(User user)
+    public async Task<UserDto> Update(UserAddDto userAddDto)
     {
-        UserDto userDto = await _userRepository.UpdateUser(user);
+        UserDto userDto = await _userRepository.UpdateUser(userAddDto);
 
         return userDto;
     }

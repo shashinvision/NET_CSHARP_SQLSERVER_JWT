@@ -82,7 +82,7 @@ public class UserRepository : DbContext
         }
 
     }
-    public async Task<UserDto> GetUserByName(UserDto userDto)
+    public async Task<UserDto> GetUserByName(string userName)
     {
 
         Connect();
@@ -94,7 +94,7 @@ public class UserRepository : DbContext
             // Use _connection from the father class
             var user = await _connection.QuerySingleOrDefaultAsync<UserDto>(
                 storedProcedure,
-                new { name = userDto.name },
+                new { name = userName },
                 commandType: CommandType.StoredProcedure
             );
 
@@ -119,10 +119,10 @@ public class UserRepository : DbContext
         }
 
     }
-    public async Task<InsertedUserDto> AddUser(User user)
+    public async Task<InsertedUserDto> AddUser(UserAddDto userAddDto)
     {
 
-        string encryptedPassword = EncryptString.EncryptPassword(user.password);
+        string encryptedPassword = EncryptString.EncryptPassword(userAddDto.password);
 
         Connect();
 
@@ -133,7 +133,12 @@ public class UserRepository : DbContext
             // Use _connection from the father class
             var userDto = await _connection.QuerySingleOrDefaultAsync<InsertedUserDto>(
                 storedProcedure,
-                new { name = user.name, rol_id = user.role_id, password = encryptedPassword },
+                new
+                {
+                    name = userAddDto.name,
+                    role_id = userAddDto.role_id,
+                    password = encryptedPassword
+                },
                 commandType: CommandType.StoredProcedure
             );
 
@@ -158,25 +163,29 @@ public class UserRepository : DbContext
         }
 
     }
-    public async Task<UserDto> UpdateUser(User user)
+    public async Task<UserDto> UpdateUser(UserAddDto userAddDto)
     {
 
-        UserDto userByID = await GetUserById(user.id);
+        UserDto userByID = await GetUserById(userAddDto.id);
         if (userByID == null || userByID.id == 0) return null!;
 
-        string encryptedPassword = EncryptString.EncryptPassword(user.password);
+        string encryptedPassword = EncryptString.EncryptPassword(userAddDto.password);
 
         Connect();
 
         try
         {
-            if (user.password == null || user.password == "")
+            if (userAddDto.password == null || userAddDto.password == "")
             {
 
                 string storedProcedure = "SP_USER_UPDATE_ROL";
                 var userDto = await _connection.QuerySingleOrDefaultAsync<UserDto>(
                     storedProcedure,
-                    new { name = userByID.name, rol_id = userByID.role_id },
+                    new
+                    {
+                        id = userByID.id,
+                        role_id = userAddDto.role_id
+                    },
                     commandType: CommandType.StoredProcedure
                 );
 
@@ -196,7 +205,12 @@ public class UserRepository : DbContext
                 // Use _connection from the father class
                 var userDto = await _connection.QuerySingleOrDefaultAsync<UserDto>(
                     storedProcedure,
-                    new { name = userByID.name, rol_id = userByID.role_id, password = encryptedPassword },
+                    new
+                    {
+                        id = userByID.id,
+                        role_id = userAddDto.role_id,
+                        password = encryptedPassword
+                    },
                     commandType: CommandType.StoredProcedure
                 );
                 if (userDto != null && userDto.name != null)
@@ -239,7 +253,7 @@ public class UserRepository : DbContext
             // Use _connection from the father class
             var userDto = await _connection.QuerySingleOrDefaultAsync<UserDto>(
                 storedProcedure,
-                new { name = idUser },
+                new { id = idUser },
                 commandType: CommandType.StoredProcedure
             );
 
