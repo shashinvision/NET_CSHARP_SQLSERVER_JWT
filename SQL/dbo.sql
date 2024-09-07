@@ -171,7 +171,7 @@ CREATE PROCEDURE [dbo].[SP_USERS_GET]
 AS
 BEGIN
 
-SELECT u.id, u.name, u.role_id, r.name as rol_name, u.status 
+SELECT u.id, u.name, u.role_id, r.name as role_name, u.status 
 	FROM users as u
 	LEFT JOIN roles as r
 		ON u.role_id = r.id
