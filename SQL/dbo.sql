@@ -12,7 +12,7 @@
  Target Server Version : 16004135 (16.00.4135)
  File Encoding         : 65001
 
- Date: 06/09/2024 20:57:03
+ Date: 07/09/2024 10:40:46
 */
 
 
@@ -86,49 +86,7 @@ GO
 SET IDENTITY_INSERT [dbo].[token_refresh] ON
 GO
 
-INSERT INTO [dbo].[token_refresh] ([id], [id_user], [refresh_token], [expire]) VALUES (N'2', N'1', N'f4500107-7889-40ba-b3c6-7bf3853a1695', N'2024-09-05 15:47:42.000')
-GO
-
-INSERT INTO [dbo].[token_refresh] ([id], [id_user], [refresh_token], [expire]) VALUES (N'3', N'1', N'e465bd9f-46e8-48b1-ae08-6b79ceccf164', N'2024-09-05 17:05:10.000')
-GO
-
-INSERT INTO [dbo].[token_refresh] ([id], [id_user], [refresh_token], [expire]) VALUES (N'4', N'1', N'b1b90370-146f-4d2c-91b5-b0b4967e1123', N'2024-09-05 17:42:02.000')
-GO
-
-INSERT INTO [dbo].[token_refresh] ([id], [id_user], [refresh_token], [expire]) VALUES (N'5', N'1', N'86bbfe2c-5894-4dbd-87f5-874cd2ee2b04', N'2024-09-05 17:42:18.000')
-GO
-
-INSERT INTO [dbo].[token_refresh] ([id], [id_user], [refresh_token], [expire]) VALUES (N'6', N'1', N'b49c7749-40bd-4824-8b5c-b2ebe9952a0e', N'2024-09-05 17:42:20.000')
-GO
-
-INSERT INTO [dbo].[token_refresh] ([id], [id_user], [refresh_token], [expire]) VALUES (N'7', N'1', N'1d665159-3871-4f22-bc97-66e7bd7c0edc', N'2024-09-05 17:42:20.000')
-GO
-
-INSERT INTO [dbo].[token_refresh] ([id], [id_user], [refresh_token], [expire]) VALUES (N'8', N'1', N'9c08ce1d-2e0b-4a24-b1d9-e654a88588d4', N'2024-09-05 17:42:20.000')
-GO
-
-INSERT INTO [dbo].[token_refresh] ([id], [id_user], [refresh_token], [expire]) VALUES (N'9', N'1', N'7cfc86fc-7240-4a9a-896a-fdaa88b7082d', N'2024-09-05 17:44:38.000')
-GO
-
-INSERT INTO [dbo].[token_refresh] ([id], [id_user], [refresh_token], [expire]) VALUES (N'10', N'1', N'5fb6a19a-563c-4f92-bf0f-fe25a24e016b', N'2024-09-05 17:46:27.000')
-GO
-
-INSERT INTO [dbo].[token_refresh] ([id], [id_user], [refresh_token], [expire]) VALUES (N'11', N'1', N'45141cfb-5e6b-40c0-a422-b4a0a6275903', N'2024-08-05 17:48:59.000')
-GO
-
-INSERT INTO [dbo].[token_refresh] ([id], [id_user], [refresh_token], [expire]) VALUES (N'12', N'16', N'4ed21a62-d419-4166-9701-9e3ba4757cba', N'2024-07-05 17:50:23.000')
-GO
-
-INSERT INTO [dbo].[token_refresh] ([id], [id_user], [refresh_token], [expire]) VALUES (N'13', N'16', N'577a76dd-7634-4827-9560-49174899c53b', N'2024-05-05 18:10:21.000')
-GO
-
-INSERT INTO [dbo].[token_refresh] ([id], [id_user], [refresh_token], [expire]) VALUES (N'14', N'16', N'c99d48a1-d944-465e-8f8c-64afaf5b1208', N'2024-04-05 20:49:19.000')
-GO
-
-INSERT INTO [dbo].[token_refresh] ([id], [id_user], [refresh_token], [expire]) VALUES (N'15', N'16', N'61ef2024-0acb-4c82-aa67-b4c013769657', N'2024-08-05 20:49:42.000')
-GO
-
-INSERT INTO [dbo].[token_refresh] ([id], [id_user], [refresh_token], [expire]) VALUES (N'1002', N'1', N'829f3797-a4d4-4774-82d4-999077d30109', N'2024-09-09 14:05:32.000')
+INSERT INTO [dbo].[token_refresh] ([id], [id_user], [refresh_token], [expire]) VALUES (N'9', N'1', N'946391de-a553-4fcb-8648-12f20f52d76c', N'2024-09-14 13:09:26.950')
 GO
 
 SET IDENTITY_INSERT [dbo].[token_refresh] OFF
@@ -188,7 +146,10 @@ GO
 INSERT INTO [dbo].[users] ([id], [name], [password], [role_id], [status]) VALUES (N'13', N'user@example.net', N'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', N'4', N'1')
 GO
 
-INSERT INTO [dbo].[users] ([id], [name], [password], [role_id], [status]) VALUES (N'15', N'user3@example.cl', N'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', N'4', N'1')
+INSERT INTO [dbo].[users] ([id], [name], [password], [role_id], [status]) VALUES (N'15', N'user3@example.cl', N'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', N'4', N'0')
+GO
+
+INSERT INTO [dbo].[users] ([id], [name], [password], [role_id], [status]) VALUES (N'2017', N'felipe@felipe.cl', N'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', N'2', N'1')
 GO
 
 SET IDENTITY_INSERT [dbo].[users] OFF
@@ -210,7 +171,12 @@ CREATE PROCEDURE [dbo].[SP_USERS_GET]
 AS
 BEGIN
 
-SELECT id, name, role_id, status FROM users WHERE status = 1 order by id asc;
+SELECT u.id, u.name, u.role_id, r.name as rol_name, u.status 
+	FROM users as u
+	LEFT JOIN roles as r
+		ON u.role_id = r.id
+	WHERE u.status = 1 
+	order by u.id asc;
 
 END
 GO
@@ -228,8 +194,13 @@ CREATE PROCEDURE [dbo].[SP_USER_GET_BY_ID]
 AS
 BEGIN
 
-SELECT TOP 1 id, name, role_id, status FROM users WHERE id = @id AND status = 1 order by id asc
-
+SELECT top 1 u.id, u.name, u.role_id, r.name as role_name, u.status 
+	FROM users as u
+	LEFT JOIN roles as r
+		ON u.role_id = r.id
+	WHERE u.id = @id
+	AND u.status = 1 
+	order by u.id asc;
 END
 GO
 
@@ -245,9 +216,14 @@ CREATE PROCEDURE [dbo].[SP_USER_GET_BY_NAME]
   @name AS varchar(255)
 AS
 BEGIN
-
-  SELECT id, name, role_id, password, status FROM users 
-		WHERE lower(name) = @name AND status = 1
+		
+		SELECT top 1 u.id, u.name, u.role_id, r.name as role_name, u.password, u.status
+		FROM users as u
+		LEFT JOIN roles as r
+			ON u.role_id = r.id
+		WHERE lower(u.name) = @name
+		AND u.status = 1 
+		order by u.id asc;
 	
 END
 GO
@@ -273,7 +249,7 @@ DECLARE @lastInsertId int;
 
 SET @lastInsertId = SCOPE_IDENTITY();
 
-EXEC SP_GET_USER_BY_ID @lastInsertId;
+EXEC SP_USER_GET_BY_ID @lastInsertId;
 
 
 END
@@ -296,7 +272,7 @@ BEGIN
 
 UPDATE users SET role_id = @role_id WHERE id = @id;
 
-EXEC SP_GET_USER_BY_ID @id;
+EXEC SP_USER_GET_BY_ID @id;
 
 END
 GO
@@ -319,7 +295,7 @@ BEGIN
 
 UPDATE users SET role_id = @role_id, password = @password WHERE id = @id;
 
-EXEC SP_GET_USER_BY_ID @id;
+EXEC SP_USER_GET_BY_ID @id;
 
 END
 GO
@@ -339,7 +315,12 @@ BEGIN
 
 UPDATE users SET status = 0 WHERE id = @id;
 
-EXEC SP_GET_USER_BY_ID @id;
+SELECT top 1 u.id, u.name, u.role_id, r.name as role_name, u.status 
+	FROM users as u
+	LEFT JOIN roles as r
+		ON u.role_id = r.id
+	WHERE u.id = @id
+	order by u.id asc;
 
 
 END
@@ -354,19 +335,19 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SP
 GO
 
 CREATE PROCEDURE [dbo].[SP_TOKEN_ADD]
-  @idUser as int,
-	@refreshToken as varchar(255), 
-	@expire as datetime
+  @id_user as int,
+	@refresh_token as varchar(255),
+	@expire as DATETIME 
 AS
 BEGIN
 
-INSERT INTO token_refresh (id_user, refresh_token, expire) VALUES (@idUser, @refreshToken, @expire)
+INSERT INTO token_refresh (id_user, refresh_token, expire) VALUES (@id_user, @refresh_token, @expire)
 
 DECLARE @lastInsertId int;
 
 SET @lastInsertId = SCOPE_IDENTITY();
 
-EXEC SP_GET_TOKEN_BY_ID @lastInsertId;
+EXEC SP_TOKEN_GET_BY_ID @lastInsertId;
 
 
 END
@@ -385,7 +366,7 @@ CREATE PROCEDURE [dbo].[SP_TOKEN_GET_BY_ID]
 AS
 BEGIN
 
-SELECT TOP 1 id_user, refresh_token, expire FROM token_refresh WHERE id = @id order by id asc
+SELECT TOP 1 id_user, refresh_token, expire FROM token_refresh WHERE id = @id order by id desc
 
 END
 GO
@@ -399,7 +380,7 @@ IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SP
 GO
 
 CREATE PROCEDURE [dbo].[SP_TOKEN_GET_BY_TOKEN]
-@token int
+@token varchar(255)
 AS
 BEGIN
 
@@ -465,7 +446,7 @@ GO
 -- ----------------------------
 -- Auto increment value for token_refresh
 -- ----------------------------
-DBCC CHECKIDENT ('[dbo].[token_refresh]', RESEED, 1)
+DBCC CHECKIDENT ('[dbo].[token_refresh]', RESEED, 9)
 GO
 
 
@@ -491,7 +472,7 @@ GO
 -- ----------------------------
 -- Auto increment value for users
 -- ----------------------------
-DBCC CHECKIDENT ('[dbo].[users]', RESEED, 2015)
+DBCC CHECKIDENT ('[dbo].[users]', RESEED, 2017)
 GO
 
 
