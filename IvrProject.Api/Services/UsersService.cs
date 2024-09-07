@@ -43,13 +43,8 @@ public class UsersService : ICommService<UserAddDto, UserDto, InsertedUserDto>
 
     public async Task<InsertedUserDto> Add(UserAddDto userAddDto)
     {
-        UserDto userDto = new UserDto()
-        {
-            name = userAddDto.name,
-            role_id = userAddDto.role_id
-        };
 
-        var userFound = await GetByName(userDto.name);
+        var userFound = await GetByName(userAddDto.name);
 
         if (userFound != null) return null!;
 
