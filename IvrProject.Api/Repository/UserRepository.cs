@@ -1,4 +1,3 @@
-using System.Data.SqlClient;
 using IvrProject.Api.Model.DTOs;
 using IvrProject.Api.Model;
 using IvrProject.Api.Model.Entities;
