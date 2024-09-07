@@ -227,7 +227,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwianRpIjoiMWY5Y2ViYTEtYzhmMi00NjE4LThjNDYtYzdkYTFkZTVhMjkyIiwidW5pcXVlX25hbWUiOiJhZG1pbkBhZG1pbi5jbCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjIiLCJleHAiOjE3MjU3MTk0MzcsImlzcyI6InlvdXJJc3N1ZXIxMjMiLCJhdWQiOiJ5b3VyQXVkaWVuY2UxMjMifQ.aK0rltTFyGeaEtmS3BSpfUrCupz8Eqto2eF3aXD6ck8",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwianRpIjoiZjgxMTJjM2YtMzlhNi00MmJkLWEzYWItM2JlYjVhZTlhYjMwIiwidW5pcXVlX25hbWUiOiJhZG1pbkBhZG1pbi5jbCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjIiLCJleHAiOjE3MjU3MjYxNDgsImlzcyI6InlvdXJJc3N1ZXIxMjMiLCJhdWQiOiJ5b3VyQXVkaWVuY2UxMjMifQ.FCeb6O6terg04G60P9IftT1LJfCmxrgIdNLcxaWBWI4",
 									"type": "string"
 								}
 							]
@@ -314,7 +314,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Sat, 07 Sep 2024 13:19:18 GMT"
+									"value": "Sat, 07 Sep 2024 15:58:02 GMT"
 								},
 								{
 									"key": "Server",
@@ -326,7 +326,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"admin@admin.cl\",\n        \"role_id\": 2,\n        \"rol_name\": \"admin\",\n        \"status\": 1\n    },\n    {\n        \"id\": 11,\n        \"name\": \"supervisor@example.cl\",\n        \"role_id\": 3,\n        \"rol_name\": \"supervisor\",\n        \"status\": 1\n    },\n    {\n        \"id\": 13,\n        \"name\": \"user@example.net\",\n        \"role_id\": 4,\n        \"rol_name\": \"user\",\n        \"status\": 1\n    },\n    {\n        \"id\": 14,\n        \"name\": \"user2@example.cl\",\n        \"role_id\": 4,\n        \"rol_name\": \"user\",\n        \"status\": 1\n    },\n    {\n        \"id\": 15,\n        \"name\": \"user3@example.cl\",\n        \"role_id\": 4,\n        \"rol_name\": \"user\",\n        \"status\": 1\n    },\n    {\n        \"id\": 16,\n        \"name\": \"user4@example.cl\",\n        \"role_id\": 4,\n        \"rol_name\": \"user\",\n        \"status\": 1\n    },\n    {\n        \"id\": 1016,\n        \"name\": \"supervisor2@example.cl\",\n        \"role_id\": 3,\n        \"rol_name\": \"supervisor\",\n        \"status\": 1\n    },\n    {\n        \"id\": 1017,\n        \"name\": \"supervisor4@example.cl\",\n        \"role_id\": 3,\n        \"rol_name\": \"supervisor\",\n        \"status\": 1\n    }\n]"
+							"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"admin@admin.cl\",\n        \"role_id\": 2,\n        \"role_name\": \"admin\",\n        \"status\": 1\n    },\n    {\n        \"id\": 11,\n        \"name\": \"supervisor@example.cl\",\n        \"role_id\": 3,\n        \"role_name\": \"supervisor\",\n        \"status\": 1\n    },\n    {\n        \"id\": 13,\n        \"name\": \"user@example.net\",\n        \"role_id\": 4,\n        \"role_name\": \"user\",\n        \"status\": 1\n    },\n    {\n        \"id\": 14,\n        \"name\": \"user2@example.cl\",\n        \"role_id\": 4,\n        \"role_name\": \"user\",\n        \"status\": 1\n    },\n    {\n        \"id\": 16,\n        \"name\": \"user4@example.cl\",\n        \"role_id\": 4,\n        \"role_name\": \"user\",\n        \"status\": 1\n    },\n    {\n        \"id\": 1016,\n        \"name\": \"supervisor2@example.cl\",\n        \"role_id\": 3,\n        \"role_name\": \"supervisor\",\n        \"status\": 1\n    },\n    {\n        \"id\": 1017,\n        \"name\": \"supervisor4@example.cl\",\n        \"role_id\": 3,\n        \"role_name\": \"supervisor\",\n        \"status\": 1\n    },\n    {\n        \"id\": 2017,\n        \"name\": \"felipe@felipe.cl\",\n        \"role_id\": 2,\n        \"role_name\": \"admin\",\n        \"status\": 1\n    },\n    {\n        \"id\": 2018,\n        \"name\": \"felipe2@felipe.cl\",\n        \"role_id\": 2,\n        \"role_name\": \"admin\",\n        \"status\": 1\n    },\n    {\n        \"id\": 2019,\n        \"name\": \"felipe4@felipe.cl\",\n        \"role_id\": 2,\n        \"role_name\": \"admin\",\n        \"status\": 1\n    }\n]"
 						}
 					]
 				},
@@ -338,7 +338,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwianRpIjoiZjIwZjBiMGQtOTE1OC00MzRlLTkxYjctNTM2Yzc3YzdlNjIwIiwidW5pcXVlX25hbWUiOiJhZG1pbkBhZG1pbi5jbCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjIiLCJleHAiOjE3MjU3MTg1NTksImlzcyI6InlvdXJJc3N1ZXIxMjMiLCJhdWQiOiJ5b3VyQXVkaWVuY2UxMjMifQ.77VsewCol29rk8b3i56PgNsi6oSAhECNezeW5DqM040",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwianRpIjoiMDk3YjQwYWItZTk5MC00MTgwLThjNjEtYzMyNmFhNzM1MGY3IiwidW5pcXVlX25hbWUiOiJhZG1pbkBhZG1pbi5jbCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjIiLCJleHAiOjE3MjU3MjQ3NjQsImlzcyI6InlvdXJJc3N1ZXIxMjMiLCJhdWQiOiJ5b3VyQXVkaWVuY2UxMjMifQ.Cz4cTtWI8H7JK0vW-h55CUHJYNBPuaDiiLJOPQ47zj8",
 									"type": "string"
 								}
 							]
@@ -356,7 +356,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"felipe@felipe.cl\",\n  \"role_id\": 2,\n  \"password\": \"123\"\n}",
+							"raw": "{\n  \"name\": \"felipe2@felipe.cl\",\n  \"role_id\": 2,\n  \"password\": \"123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
