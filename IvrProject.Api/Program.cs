@@ -1,10 +1,10 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using SQL_SERVER_API.DTOs;
-using SQL_SERVER_API.Model.Entities;
-using SQL_SERVER_API.Services;
-using SQL_SERVER_API.Interfaces;
+using IvrProject.Api.Model.DTOs;
+using IvrProject.Api.Model.Entities;
+using IvrProject.Api.Services;
+using IvrProject.Api.Interfaces;
 using System.Security.Claims;
 
 

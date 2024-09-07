@@ -1,11 +1,12 @@
 using System.Data.SqlClient;
-using SQL_SERVER_API.DTOs;
-using SQL_SERVER_API.Model;
-using SQL_SERVER_API.Model.Entities;
-using SQL_SERVER_API.Helpers;
+using IvrProject.Api.Model.DTOs;
+using IvrProject.Api.Model;
+using IvrProject.Api.Model.Entities;
+using IvrProject.Api.Helpers;
+using Dapper;
 using System.Data;
 
-namespace SQL_SERVER_API.Repository;
+namespace IvrProject.Api.Repository;
 
 public class UserRepository : DbContext
 {
@@ -20,265 +21,286 @@ public class UserRepository : DbContext
 
         Connect();
 
-        List<UserDto> users = new List<UserDto>();
-        string query = "SELECT id, name, role_id FROM users order by id asc";
+        try
+        {
+            string storedProcedure = "SP_USERS_GET";
+
+            // Use _connection from the father class
+            var users = await _connection.QueryAsync<UserDto>(
+                storedProcedure,
+                // new { RUT = int.Parse(rutWithoutLastDigit) },
+                commandType: CommandType.StoredProcedure
+            );
+
+            return users.ToList();
+        }
+
+        catch (System.Exception ex)
+        {
+            Console.WriteLine("Error: " + ex.Message);
+            throw;
+        }
+        finally
+        {
+            Close();
+        }
+
+
+    }
+    public async Task<UserDto> GetUserById(int idUser)
+    {
+        Connect();
 
         try
         {
-            // _connection come from base (Father class)
-            SqlCommand command = new SqlCommand(query, _connection);
-            SqlDataReader reader = await command.ExecuteReaderAsync();
+            string storedProcedure = "SP_USER_GET_BY_ID";
 
-            while (await reader.ReadAsync())
+            // Use _connection from the father class
+            var user = await _connection.QuerySingleOrDefaultAsync<UserDto>(
+                storedProcedure,
+                new { id = idUser },
+                commandType: CommandType.StoredProcedure
+            );
+
+            if (user != null && user.id > 0)
             {
-
-                int id = reader.GetInt32(0);
-                string name = reader.GetString(1);
-                int roleId = reader.GetInt32(2);
-
-                users.Add(new UserDto(){
-                    id = id,
-                    name = name,
-                    roleId = roleId
-                });
+                return user;
             }
-
+            else
+            {
+                return null!;
+            }
         }
+
         catch (System.Exception ex)
         {
-            Console.WriteLine("Error:" + ex.Message);
+            Console.WriteLine("Error: " + ex.Message);
             throw;
         }
-
-        Close();
-        return users;
+        finally
+        {
+            Close();
+        }
 
     }
-    public async Task<List<UserDto>> GetUserById(int idUser)
+    public async Task<UserDto> GetUserByName(UserDto userDto)
     {
 
         Connect();
 
-        List<UserDto> users = new List<UserDto>();
-        string query = "SELECT id, name, role_id FROM users WHERE id = @id";
-
         try
         {
-            SqlCommand command = new SqlCommand(query, _connection);
-            command.Parameters.AddWithValue("@id", idUser);
-            SqlDataReader reader = await command.ExecuteReaderAsync();
+            string storedProcedure = "SP_USER_GET_BY_NAME";
 
-            while (await reader.ReadAsync())
+            // Use _connection from the father class
+            var user = await _connection.QuerySingleOrDefaultAsync<UserDto>(
+                storedProcedure,
+                new { name = userDto.name },
+                commandType: CommandType.StoredProcedure
+            );
+
+            if (user != null && user.id > 0)
             {
-
-                int id = reader.GetInt32(0);
-                string name = reader.GetString(1);
-                int roleId = reader.GetInt32(2);
-
-                users.Add(new UserDto(){
-                    id = id,
-                    name = name,
-                    roleId = roleId
-                });
+                return user;
             }
-
+            else
+            {
+                return null!;
+            }
         }
+
         catch (System.Exception ex)
         {
-            Console.WriteLine("Error:" + ex.Message);
+            Console.WriteLine("Error: " + ex.Message);
             throw;
         }
-
-        Close();
-        return users;
-
-    }
-    public async Task<List<UserDto>> GetUserByName(UserDto user)
-    {
-
-        Connect();
-
-        List<UserDto> users = new List<UserDto>();
-        string query = "SELECT id, name, role_id FROM users WHERE lower(name) = @name";
-
-        try
+        finally
         {
-            SqlCommand command = new SqlCommand(query, _connection);
-            command.Parameters.AddWithValue("@name", user.name?.ToLower());
-            SqlDataReader reader = await command.ExecuteReaderAsync();
-
-            while (await reader.ReadAsync())
-            {
-
-                int id = reader.GetInt32(0);
-                string name = reader.GetString(1);
-                int roleId = reader.GetInt32(2);
-
-                users.Add(new UserDto(){
-                    id = id,
-                    name = name,
-                    roleId = roleId
-                });
-            }
-
-        }
-        catch (System.Exception ex)
-        {
-            Console.WriteLine("Error:" + ex.Message);
-            throw;
+            Close();
         }
 
-        Close();
-        return users;
-
     }
-    public async Task<List<InsertedUserDto>> AddUser(User user)
+    public async Task<InsertedUserDto> AddUser(User user)
     {
 
         string encryptedPassword = EncryptString.EncryptPassword(user.password);
 
         Connect();
 
-        List<InsertedUserDto> users = new List<InsertedUserDto>();
-        string query = "INSERT INTO users (name, role_id, password) VALUES (@name, @role_id, @password)";
-
         try
         {
-            SqlCommand command = new SqlCommand(query, _connection);
-            command.Parameters.AddWithValue("@name", user.name);
-            command.Parameters.AddWithValue("@role_id", user.roleId);
-            command.Parameters.AddWithValue("@password", encryptedPassword);
-            await command.ExecuteNonQueryAsync();
+            string storedProcedure = "SP_USER_ADD";
 
-        }
-        catch (System.Exception ex)
-        {
-            Console.WriteLine("Error:" + ex.Message);
-            throw;
-        }
+            // Use _connection from the father class
+            var userDto = await _connection.QuerySingleOrDefaultAsync<InsertedUserDto>(
+                storedProcedure,
+                new { name = user.name, rol_id = user.role_id, password = encryptedPassword },
+                commandType: CommandType.StoredProcedure
+            );
 
-        Close();
-
-        users.Add(new InsertedUserDto(){
-            name = user.name,
-            roleId = user.roleId
-        });
-        return users;
-
-    }
-    public async Task<List<UserDto>> UpdateUser(User user)
-    {
-
-        List<UserDto> users = await GetUserById(user.id);
-        if (users.Count == 0) return new List<UserDto>();
-
-        Connect();
-
-        try
-        {
-            string query = "UPDATE users SET role_id = @role_id WHERE id = @id";
-            
-            if (user.password != null)
+            if (userDto != null && userDto.name != null)
             {
-                query = "UPDATE users SET role_id = @role_id, password = @password WHERE id = @id";
-            } 
-
-            SqlCommand command = new SqlCommand(query, _connection);
-            command.Parameters.AddWithValue("@id", user.id);
-            command.Parameters.AddWithValue("@role_id", user.roleId);
-            if (user.password != null) {
-                string encryptedPassword = EncryptString.EncryptPassword(user.password);
-                command.Parameters.AddWithValue("@password", encryptedPassword);
+                return userDto;
             }
-            await command.ExecuteNonQueryAsync();
-
-        }
-        catch (System.Exception ex)
-        {
-            Console.WriteLine("Error:" + ex.Message);
-            throw;
-        }
-
-        Close();
-
-        var userDto = new UserDto(){
-            id = user.id,
-            name = users.First().name,
-            roleId = user.roleId
-        };
-        users.Clear();
-        users.Add(userDto);
-        return users;
-
-
-    }
-    public async Task<List<UserDto>> DeleteUser(int idUser)
-    {
-        List<UserDto> users = await GetUserById(idUser);
-        if (users.Count == 0) return new List<UserDto>();
-
-        Connect();
-
-        string query = "DELETE FROM users WHERE id = @id";
-
-        try
-        {
-            SqlCommand command = new SqlCommand(query, _connection);
-            command.Parameters.AddWithValue("@id", idUser);
-            await command.ExecuteNonQueryAsync();
-
-        }
-        catch (System.Exception ex)
-        {
-            Console.WriteLine("Error:" + ex.Message);
-            throw;
-        }
-
-        Close();
-
-        return users;
-
-    }
-
-    public async Task<LoginDto> GetUserToLogin(LoginDto user){
-
-        LoginDto loginDto;
-
-        Connect();
-
-        string query = "SELECT id, name, password, role_id FROM users WHERE lower(name) = @name";
-
-        try
-        {
-            SqlCommand command = new SqlCommand(query, _connection);
-            command.Parameters.AddWithValue("@name", user.Username?.ToLower());
-            SqlDataReader reader = await command.ExecuteReaderAsync();
-
-            await reader.ReadAsync();
+            else
             {
-                int id = reader.GetInt32(0);
-                string name = reader.GetString(1);
-                string password = reader.GetString(2);
-                int roleId = reader.GetInt32(3);
+                return null!;
+            }
+        }
 
+        catch (System.Exception ex)
+        {
+            Console.WriteLine("Error: " + ex.Message);
+            throw;
+        }
+        finally
+        {
+            Close();
+        }
 
-                loginDto = new LoginDto(){
-                    Id = id,
-                    Username = name,
-                    Password = password,
-                    roleId = roleId
-                };
+    }
+    public async Task<UserDto> UpdateUser(User user)
+    {
+
+        UserDto userByID = await GetUserById(user.id);
+        if (userByID == null || userByID.id == 0) return null!;
+
+        string encryptedPassword = EncryptString.EncryptPassword(user.password);
+
+        Connect();
+
+        try
+        {
+            if (user.password == null || user.password == "")
+            {
+
+                string storedProcedure = "SP_USER_UPDATE_ROL";
+                var userDto = await _connection.QuerySingleOrDefaultAsync<UserDto>(
+                    storedProcedure,
+                    new { name = userByID.name, rol_id = userByID.role_id },
+                    commandType: CommandType.StoredProcedure
+                );
+
+                if (userDto != null && userDto.name != null)
+                {
+                    return userDto;
+                }
+                else
+                {
+                    return null!;
+                }
+            }
+            else
+            {
+                string storedProcedure = "SP_USER_UPDATE_ROL_PASSWORD";
+
+                // Use _connection from the father class
+                var userDto = await _connection.QuerySingleOrDefaultAsync<UserDto>(
+                    storedProcedure,
+                    new { name = userByID.name, rol_id = userByID.role_id, password = encryptedPassword },
+                    commandType: CommandType.StoredProcedure
+                );
+                if (userDto != null && userDto.name != null)
+                {
+                    return userDto;
+                }
+                else
+                {
+                    return null!;
+                }
             }
 
         }
+
         catch (System.Exception ex)
         {
-            Console.WriteLine("Error:" + ex.Message);
+            Console.WriteLine("Error: " + ex.Message);
             throw;
         }
+        finally
+        {
+            Close();
+        }
 
-        Close();
-        return loginDto;
+
+    }
+    public async Task<UserDto> DeleteUser(int idUser)
+    {
+
+        UserDto userByID = await GetUserById(idUser);
+
+        if (userByID == null || userByID.id == 0) return null!;
+
+        Connect();
+
+        try
+        {
+            string storedProcedure = "SP_USER_DELETE";
+
+            // Use _connection from the father class
+            var userDto = await _connection.QuerySingleOrDefaultAsync<UserDto>(
+                storedProcedure,
+                new { name = idUser },
+                commandType: CommandType.StoredProcedure
+            );
+
+            if (userDto != null && userDto.name != null)
+            {
+                return userDto;
+            }
+            else
+            {
+                return null!;
+            }
+        }
+
+        catch (System.Exception ex)
+        {
+            Console.WriteLine("Error: " + ex.Message);
+            throw;
+        }
+        finally
+        {
+            Close();
+        }
+
+
+    }
+
+    public async Task<User> GetUserToLogin(LoginPayLoadDto loginPayLoadDto)
+    {
+        Connect();
+
+        try
+        {
+            string storedProcedure = "SP_USER_GET_BY_NAME";
+
+            // Use _connection from the father class
+            var user = await _connection.QuerySingleOrDefaultAsync<User>(
+                storedProcedure,
+                new { name = loginPayLoadDto.name },
+                commandType: CommandType.StoredProcedure
+            );
+
+            if (user != null && user.id > 0)
+            {
+                return user;
+            }
+            else
+            {
+                return null!;
+            }
+        }
+
+        catch (System.Exception ex)
+        {
+            Console.WriteLine("Error repository: " + ex.Message);
+            throw;
+        }
+        finally
+        {
+            Close();
+        }
     }
 
 }

@@ -1,8 +1,8 @@
 using System;
-using SQL_SERVER_API.DTOs;
-using SQL_SERVER_API.Model.Entities;
+using IvrProject.Api.Model.DTOs;
+using IvrProject.Api.Model.Entities;
 
-namespace SQL_SERVER_API.Interfaces;
+namespace IvrProject.Api.Interfaces;
 
 public interface ITokenService
 {

@@ -1,8 +1,8 @@
 using System;
 
-namespace SQL_SERVER_API.DTOs;
+namespace IvrProject.Api.Model.DTOs;
 
-public class PostRefreshTokenDto
+public class PostRefreshToken
 {
     public string? RefreshToken { get; set; }
 

@@ -1,10 +1,11 @@
 using System;
-using SQL_SERVER_API.DTOs;
-namespace SQL_SERVER_API.Interfaces;
+using IvrProject.Api.Model.DTOs;
+using IvrProject.Api.Model.Entities;
+namespace IvrProject.Api.Interfaces;
 
 public interface IAuthService
 {
-    Task<List<string>> Login(LoginDto loginDto);
-    Task<LoginDto> GetUserToLogin(LoginDto user);
-     Task<List<UserDto>> VerifyAndRetrieveUserByRefreshToken(string refreshToken);
+    Task<List<string>> Login(LoginPayLoadDto loginPayLoadDto);
+    Task<User> GetUserToLogin(LoginPayLoadDto loginPayLoadDto);
+    Task<UserDto> VerifyAndRetrieveUserByRefreshToken(string refreshToken);
 }

@@ -2,27 +2,27 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using SQL_SERVER_API.DTOs;
-using SQL_SERVER_API.Model.Entities;
-using SQL_SERVER_API.Interfaces;
-using SQL_SERVER_API.Repository;
+using IvrProject.Api.Model.DTOs;
+using IvrProject.Api.Model.Entities;
+using IvrProject.Api.Interfaces;
+using IvrProject.Api.Repository;
 
 
-namespace SQL_SERVER_API.Services;
+namespace IvrProject.Api.Services;
 
 public class TokenService : ITokenService
 {
     private readonly IConfiguration _configuration;
     private readonly TokenRespository _tokenRepository;
 
-    
+
 
     public TokenService(IConfiguration configuration)
     {
-        _configuration = configuration;    
+        _configuration = configuration;
 
         string? connectionString = _configuration.GetConnectionString("SqlConnection");
-        
+
         _tokenRepository = new TokenRespository(connectionString);
 
     }
@@ -45,8 +45,8 @@ public class TokenService : ITokenService
                 
                 // Add more claims if necessary, e.g. roles or email
                 new Claim(JwtRegisteredClaimNames.UniqueName, userDto.name),  // "name" claim
-                // new Claim("roleId", loginDto.roleId.ToString()),  
-                new Claim(ClaimTypes.Role, string.Join(",", userDto.roleId.ToString()))
+                // new Claim("role_id", loginDto.role_id.ToString()),  
+                new Claim(ClaimTypes.Role, string.Join(",", userDto.role_id.ToString()))
 
             };
 
@@ -75,40 +75,48 @@ public class TokenService : ITokenService
         // Calculate the expiration time
         DateTime expire = DateTime.UtcNow.AddDays(7);
 
+        var token = new RefreshToken
+        {
+            id_user = userDto.id,
+            refresh_token = refreshToken,
+            expire = expire
+        };
+
 
         // Store the refresh token in the database
         try
         {
-            var result = await _tokenRepository.StoreRefreshToken(userDto.id, refreshToken, expire.ToString("yyyy-MM-dd HH:mm:ss"));
-            
-            if(result) return refreshToken;
+            var result = await _tokenRepository.StoreRefreshToken(token);
+
+            if (result) return refreshToken;
         }
         catch (System.Exception ex)
         {
-            
+
             Console.WriteLine("Error:" + ex.Message);
         }
 
         return "";
     }
 
-    public async Task<string> verifyExpiredToken(UserDto userDto){
+    public async Task<string> verifyExpiredToken(UserDto userDto)
+    {
 
         try
         {
             RefreshToken result = await _tokenRepository.GetRefreshTokenByUser(userDto.id);
 
-             if(result == null) return "";
+            if (result == null || result.refresh_token == null) return "";
 
             DateTime now = DateTime.Now;
-            DateTime expireDate = DateTime.Parse(result.Expire);
+            DateTime expireDate = result.expire;
 
-            if (now < expireDate) return result.Token;
+            if (now < expireDate) return result.refresh_token;
 
         }
         catch (System.Exception ex)
         {
-             Console.WriteLine("Error:" + ex.Message);
+            Console.WriteLine("Error:" + ex.Message);
             throw;
         }
 
@@ -127,7 +135,7 @@ public class TokenService : ITokenService
         }
         catch (System.Exception ex)
         {
-            
+
             Console.WriteLine("Error:" + ex.Message);
         }
 

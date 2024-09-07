@@ -4,7 +4,7 @@ using System.Text;
 using System.Linq.Expressions;
 
 
-namespace SQL_SERVER_API.Helpers;
+namespace IvrProject.Api.Helpers;
 
 public static class EncryptString
 {

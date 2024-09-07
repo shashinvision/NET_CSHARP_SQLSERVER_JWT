@@ -1,6 +1,6 @@
 using System;
 
-namespace SQL_SERVER_API.DTOs;
+namespace IvrProject.Api.Model.DTOs;
 
 public class LoginDto
 {
@@ -8,5 +8,5 @@ public class LoginDto
     public required string Username { get; set; }
     public required string Password { get; set; }
 
-    public int roleId { get; set; }
+    public int role_id { get; set; }
 }

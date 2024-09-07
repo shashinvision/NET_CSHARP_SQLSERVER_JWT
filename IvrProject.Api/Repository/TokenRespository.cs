@@ -1,10 +1,12 @@
-using System;
 using System.Data;
 using System.Data.SqlClient;
-using SQL_SERVER_API.Model;
-using SQL_SERVER_API.Model.Entities;
+using IvrProject.Api.Model;
+using IvrProject.Api.Model.DTOs;
+using IvrProject.Api.Model.Entities;
+using Dapper;
 
-namespace SQL_SERVER_API.Repository;
+
+namespace IvrProject.Api.Repository;
 
 public class TokenRespository : DbContext
 {
@@ -13,116 +15,115 @@ public class TokenRespository : DbContext
     }
 
 
-        public async Task<bool> StoreRefreshToken(int userId, string refreshToken, string expire)
+    public async Task<bool> StoreRefreshToken(RefreshToken refreshToken)
     {
 
-
         Connect();
-
-        string query = "INSERT INTO token_refresh (id_user, refresh_token, expire) VALUES (@idUser, @refreshToken, @expire)";
-
         try
         {
-            // _connection come from base (Father class)
-            SqlCommand command = new SqlCommand(query, _connection);
-            command.Parameters.AddWithValue("@idUser", userId);
-            command.Parameters.AddWithValue("@refreshToken", refreshToken);
-        command.Parameters.Add("@expire", SqlDbType.DateTime).Value = expire;
-            await command.ExecuteNonQueryAsync();
+            string storedProcedure = "SP_TOKEN_ADD";
 
+            // Use _connection from the father class
+            var refresh_token = await _connection.QuerySingleOrDefaultAsync<RefreshToken>(
+                storedProcedure,
+                refreshToken,
+                commandType: CommandType.StoredProcedure
+            );
+
+            if (refresh_token != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
+
         catch (System.Exception ex)
         {
-            Console.WriteLine("Error:" + ex.Message);
+            Console.WriteLine("Error: " + ex.Message);
             return false;
-            throw;
         }
-
-        Close();
-
-        return true;
+        finally
+        {
+            Close();
+        }
 
     }
 
-    public async Task<RefreshToken> GetRefreshToken(string refreshToken){
-
-        RefreshToken TokenRefresh;
+    public async Task<RefreshToken> GetRefreshToken(string refreshToken)
+    {
 
         Connect();
-
-        string query = "SELECT id_user, refresh_token, expire FROM token_refresh WHERE refresh_token = @refreshToken";
-
         try
         {
-            SqlCommand command = new SqlCommand(query, _connection);
-            command.Parameters.AddWithValue("@refreshToken", refreshToken);
-            SqlDataReader reader = await command.ExecuteReaderAsync();
+            string storedProcedure = "SP_TOKEN_GET_BY_TOKEN";
 
-            await reader.ReadAsync();
+            // Use _connection from the father class
+            var refresh_token = await _connection.QuerySingleOrDefaultAsync<RefreshToken>(
+                storedProcedure,
+                new { token = refreshToken },
+                commandType: CommandType.StoredProcedure
+            );
+
+            if (refresh_token != null)
             {
-                int id_user = reader.GetInt32(0);
-                string refresh_token = reader.GetString(1);
-                DateTime expire = reader.GetDateTime(2);
-
-                TokenRefresh = new RefreshToken
-                {
-                    IdUser = id_user,
-                    Token = refresh_token,
-                    Expire = expire.ToString() // Convert DateTime to string if needed
-                };
+                return refresh_token;
             }
-
+            else
+            {
+                return null!;
+            }
         }
-         catch (System.Exception ex)
+
+        catch (System.Exception ex)
         {
-            Console.WriteLine("Error on GetRefreshToken:" + ex.Message);
-            throw;
+            Console.WriteLine("Error: " + ex.Message);
+            return null!;
+        }
+        finally
+        {
+            Close();
         }
 
-        Close();
-        return TokenRefresh;
-        
     }
 
 
-        public async Task<RefreshToken> GetRefreshTokenByUser(int userId){
-
-        RefreshToken TokenRefresh;
+    public async Task<RefreshToken> GetRefreshTokenByUser(int userId)
+    {
 
         Connect();
-        
-        // I just want the last one by id
-        string query = "SELECT TOP 1 id_user, refresh_token, expire FROM token_refresh WHERE id_user = @userId ORDER BY id DESC";
-
         try
         {
-            SqlCommand command = new SqlCommand(query, _connection);
-            command.Parameters.AddWithValue("@userId", userId);
-            SqlDataReader reader = await command.ExecuteReaderAsync();
+            string storedProcedure = "SP_TOKEN_GET_BY_USER";
 
-            await reader.ReadAsync();
+            // Use _connection from the father class
+            var refresh_token = await _connection.QuerySingleOrDefaultAsync<RefreshToken>(
+                storedProcedure,
+                new { id_user = userId },
+                commandType: CommandType.StoredProcedure
+            );
+
+            if (refresh_token != null)
             {
-                int id_user = reader.GetInt32(0);
-                string refresh_token = reader.GetString(1);
-                DateTime expire = reader.GetDateTime(2);
-
-                TokenRefresh = new RefreshToken
-                {
-                    IdUser = id_user,
-                    Token = refresh_token,
-                    Expire = expire.ToString() // Convert DateTime to string if needed
-                };
+                return refresh_token;
             }
-
+            else
+            {
+                return null!;
+            }
         }
-         catch (System.Exception ex)
+
+        catch (System.Exception ex)
         {
-            Console.WriteLine("Error on GetRefreshToken:" + ex.Message);
-            throw;
+            Console.WriteLine("Error: " + ex.Message);
+            return null!;
+        }
+        finally
+        {
+            Close();
         }
 
-        Close();
-        return TokenRefresh;
-        
     }
 }

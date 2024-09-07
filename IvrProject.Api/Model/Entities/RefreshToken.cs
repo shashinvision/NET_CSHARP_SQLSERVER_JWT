@@ -1,13 +1,10 @@
 using System;
-using System.ComponentModel.DataAnnotations;
 
-namespace SQL_SERVER_API.Model.Entities;
+namespace IvrProject.Api.Model.DTOs;
 
 public class RefreshToken
 {
-    public int IdUser { get; set; }
-    
-    [Required]
-    public string? Token { get; set; }
-    public string? Expire { get; set; }
+    public int id_user { get; set; }
+    public string? refresh_token { get; set; }
+    public DateTime expire { get; set; }
 }

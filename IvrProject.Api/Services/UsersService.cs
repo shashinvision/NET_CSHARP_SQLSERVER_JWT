@@ -1,9 +1,9 @@
 using System;
-using SQL_SERVER_API.DTOs;
-using SQL_SERVER_API.Model.Entities;
-using SQL_SERVER_API.Interfaces;
-using SQL_SERVER_API.Repository;
-namespace SQL_SERVER_API.Services;
+using IvrProject.Api.Model.DTOs;
+using IvrProject.Api.Model.Entities;
+using IvrProject.Api.Interfaces;
+using IvrProject.Api.Repository;
+namespace IvrProject.Api.Services;
 
 public class UsersService : ICommService<User, UserDto, InsertedUserDto>
 {
@@ -14,7 +14,7 @@ public class UsersService : ICommService<User, UserDto, InsertedUserDto>
     public UsersService(IConfiguration configuration)
     {
         _configuration = configuration;
-        
+
         string? connectionString = _configuration.GetConnectionString("SqlConnection");
 
         _userRepository = new UserRepository(connectionString);
@@ -22,77 +22,56 @@ public class UsersService : ICommService<User, UserDto, InsertedUserDto>
 
     public async Task<List<UserDto>> Get()
     {
-        _userRepository.Connect();
 
         List<UserDto> users = await _userRepository.GetUsers();
 
-        _userRepository.Close();
+        return users;
+    }
+    public async Task<UserDto> GetById(int idUser)
+    {
+
+        UserDto users = await _userRepository.GetUserById(idUser);
 
         return users;
     }
-    public async Task<List<UserDto>> GetById(int idUser)
+    public async Task<UserDto> GetByName(UserDto user)
     {
-        _userRepository.Connect();
-
-        List<UserDto> users = await _userRepository.GetUserById(idUser);
-
-        _userRepository.Close();
-
-        return users;
-    }
-    public async Task<List<UserDto>> GetByName(UserDto user)
-    {
-        _userRepository.Connect();
-
-        List<UserDto> users = await _userRepository.GetUserByName(user);
-
-        _userRepository.Close();
+        UserDto users = await _userRepository.GetUserByName(user);
 
         return users;
     }
 
-    public async Task<List<InsertedUserDto>> Add(User user)
+    public async Task<InsertedUserDto> Add(User user)
     {
-        UserDto userDto = new UserDto(){
+        UserDto userDto = new UserDto()
+        {
             name = user.name,
-            roleId = user.roleId
+            role_id = user.role_id
         };
 
         var userFound = await GetByName(userDto);
 
-        if (userFound.Count > 0) return new List<InsertedUserDto>();
+        if (userFound != null) return null!;
 
-        _userRepository.Connect();
+        InsertedUserDto userAdd = await _userRepository.AddUser(user);
 
-        List<InsertedUserDto> users = await _userRepository.AddUser(user);
-
-        _userRepository.Close();
-
-        return users;
+        return userAdd;
     }
 
-    public async Task<List<UserDto>> Update(User user)
+    public async Task<UserDto> Update(User user)
     {
-        _userRepository.Connect();
+        UserDto userDto = await _userRepository.UpdateUser(user);
 
-        List<UserDto> users = await _userRepository.UpdateUser(user);
-
-        _userRepository.Close();
-
-        return users;
+        return userDto;
     }
 
-    public async Task<List<UserDto>> Delete(int idUser)
+    public async Task<UserDto> Delete(int idUser)
     {
 
-        _userRepository.Connect();
+        UserDto userDto = await _userRepository.DeleteUser(idUser);
 
-        List<UserDto> users = await _userRepository.DeleteUser(idUser);
+        return userDto;
 
-        _userRepository.Close(); 
-        
-        return users;
-      
     }
 
 }

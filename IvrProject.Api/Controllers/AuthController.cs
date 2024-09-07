@@ -1,13 +1,8 @@
-using System;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SQL_SERVER_API.DTOs;
-using SQL_SERVER_API.Services;
-using SQL_SERVER_API.Interfaces;
+using IvrProject.Api.Model.DTOs;
+using IvrProject.Api.Interfaces;
 
-namespace SQL_SERVER_API.Controllers;
+namespace IvrProject.Api.Controllers;
 
 
 [ApiController]
@@ -24,11 +19,11 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
+    public async Task<IActionResult> Login([FromBody] LoginPayLoadDto loginPayLoadDto)
     {
         try
         {
-            var userJwtArray = await _authService.Login(loginDto);
+            var userJwtArray = await _authService.Login(loginPayLoadDto);
 
             var user_jwt = userJwtArray[0];
             var refreshToken = userJwtArray[1];
@@ -44,21 +39,18 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("refreshtoken")]
-    public async Task<IActionResult> RefreshToken([FromBody] PostRefreshTokenDto refreshTokenDto)
+    public async Task<IActionResult> RefreshToken([FromBody] PostRefreshToken RefreshToken)
     {
 
-        var refresh = refreshTokenDto;
+        var refresh = RefreshToken;
 
         try
         {
-            List<UserDto> userList = await _authService.VerifyAndRetrieveUserByRefreshToken(refresh.RefreshToken);
-
-
-            var userDto = userList.First();
+            UserDto userDto = await _authService.VerifyAndRetrieveUserByRefreshToken(refresh.RefreshToken);
 
             if (userDto == null)
             {
-                throw new Exception("Invalid refresh token");
+                return BadRequest("Invalid refresh token");
             }
 
             // Generate a new JWT token

@@ -1,13 +1,12 @@
 using System;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using SQL_SERVER_API.DTOs;
-using SQL_SERVER_API.Model.Entities;
-using SQL_SERVER_API.Interfaces;
+using IvrProject.Api.Model.DTOs;
+using IvrProject.Api.Model.Entities;
+using IvrProject.Api.Interfaces;
 
 
-namespace SQL_SERVER_API.Controllers;
+namespace IvrProject.Api.Controllers;
 
 [Authorize]
 [ApiController]
@@ -29,12 +28,12 @@ public class UserController : ControllerBase
 
     }
     [HttpGet("User/{id}")]
-    public async Task<ActionResult<List<UserDto>>> GetUser(int id)
+    public async Task<ActionResult<UserDto>> GetUser(int id)
     {
 
         var user = await _usersService.GetById(id);
 
-        if (user.Count < 1)
+        if (user == null)
         {
             return BadRequest("User Not found");
         }
@@ -45,14 +44,14 @@ public class UserController : ControllerBase
 
     [Authorize(Roles = "2")]
     [HttpPost("User")]
-    public async Task<ActionResult<List<InsertedUserDto>>> AddUser([FromBody] User newUser)
+    public async Task<ActionResult<InsertedUserDto>> AddUser([FromBody] User newUser)
     {
 
         try
         {
             var user = await _usersService.Add(newUser);
 
-            if (user.Count < 1)
+            if (user == null)
             {
                 return BadRequest("User already exists");
             }
@@ -67,14 +66,14 @@ public class UserController : ControllerBase
 
     }
     [HttpPut("User")]
-    public async Task<ActionResult<List<UserDto>>> UpdateUser([FromBody] User updateUser)
+    public async Task<ActionResult<UserDto>> UpdateUser([FromBody] User updateUser)
     {
 
         try
         {
             var user = await _usersService.Update(updateUser);
 
-            if (user.Count < 1)
+            if (user == null)
             {
                 return BadRequest("User Not found");
             }
@@ -89,12 +88,12 @@ public class UserController : ControllerBase
 
     }
     [HttpDelete("User/{id}")]
-    public async Task<ActionResult<List<UserDto>>> DeleteUser(int id)
+    public async Task<ActionResult<UserDto>> DeleteUser(int id)
     {
 
         var user = await _usersService.Delete(id);
 
-        if (user.Count < 1)
+        if (user == null)
         {
             return BadRequest("User Not found");
         }

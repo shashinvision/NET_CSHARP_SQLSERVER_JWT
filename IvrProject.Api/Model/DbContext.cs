@@ -1,35 +1,36 @@
-using System;
 using System.Data.SqlClient;
 
-namespace SQL_SERVER_API.Model;
+namespace IvrProject.Api.Model;
 
 public abstract class DbContext
 {
-    private string _connectionString;
+    private readonly string _connectionString;
     protected SqlConnection _connection;
- 
-    public DbContext(string connectionString){
+
+    protected DbContext(string connectionString)
+    {
 
         _connectionString = connectionString;
-
-        // _connectionString = $"Data Source={server};Initial Catalog={db};User ID={user};Password={password}";
     }
 
-    public void Connect(){
+    public void Connect()
+    {
         try
         {
             _connection = new SqlConnection(_connectionString);
-        _connection.Open();
+            _connection.Open();
         }
         catch (System.Exception ex)
         {
             Console.WriteLine("Error:" + ex.Message);
             throw;
         }
+
     }
 
-    public void Close(){
-        if(_connection != null && _connection.State == System.Data.ConnectionState.Open)
+    public void Close()
+    {
+        if (_connection != null && _connection.State == System.Data.ConnectionState.Open)
         {
             _connection.Close();
         }
