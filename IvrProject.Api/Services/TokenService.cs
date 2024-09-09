@@ -31,9 +31,9 @@ public class TokenService : ITokenService
     {
         try
         {
-            string secretKey = _configuration["Jwt:Secret"] ?? throw new ArgumentNullException("Jwt:Secret configuration is missing");
-            string issuer = _configuration["Jwt:Issuer"] ?? throw new ArgumentNullException("Jwt:Issuer configuration is missing");
-            string audience = _configuration["Jwt:Audience"] ?? throw new ArgumentNullException("Jwt:Audience configuration is missing");
+            string secretKey = _configuration["Jwt:Secret"] ?? throw new InvalidOperationException("Jwt:Secret configuration is missing");
+            string issuer = _configuration["Jwt:Issuer"] ?? throw new InvalidOperationException("Jwt:Issuer configuration is missing");
+            string audience = _configuration["Jwt:Audience"] ?? throw new InvalidOperationException("Jwt:Audience configuration is missing");
 
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
