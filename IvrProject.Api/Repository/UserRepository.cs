@@ -22,7 +22,7 @@ public class UserRepository : DbContext
 
         try
         {
-            string view = "SELECT * FROM VW_USERS_GET";
+            string view = "SELECT id, name, role_id, role_name, status FROM VW_USERS_GET";
 
             // Use _connection from the father class
             var users = await _connection.QueryAsync<UserDto>(
