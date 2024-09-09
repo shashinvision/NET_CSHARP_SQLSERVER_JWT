@@ -12,7 +12,7 @@
  Target Server Version : 16004135 (16.00.4135)
  File Encoding         : 65001
 
- Date: 07/09/2024 10:40:46
+ Date: 09/09/2024 20:33:41
 */
 
 
@@ -152,10 +152,31 @@ GO
 INSERT INTO [dbo].[users] ([id], [name], [password], [role_id], [status]) VALUES (N'2017', N'felipe@felipe.cl', N'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', N'2', N'1')
 GO
 
+INSERT INTO [dbo].[users] ([id], [name], [password], [role_id], [status]) VALUES (N'2018', N'felipe2@felipe.cl', N'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', N'2', N'1')
+GO
+
+INSERT INTO [dbo].[users] ([id], [name], [password], [role_id], [status]) VALUES (N'2019', N'felipe4@felipe.cl', N'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', N'2', N'1')
+GO
+
 SET IDENTITY_INSERT [dbo].[users] OFF
 GO
 
 COMMIT
+GO
+
+
+-- ----------------------------
+-- View structure for VW_USERS_GET
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[VW_USERS_GET]') AND type IN ('V'))
+	DROP VIEW [dbo].[VW_USERS_GET]
+GO
+
+CREATE VIEW [dbo].[VW_USERS_GET] AS SELECT u.id, u.name, u.role_id, r.name as role_name, u.status 
+	FROM users as u
+	LEFT JOIN roles as r
+		ON u.role_id = r.id
+	WHERE u.status = 1;
 GO
 
 
@@ -472,7 +493,7 @@ GO
 -- ----------------------------
 -- Auto increment value for users
 -- ----------------------------
-DBCC CHECKIDENT ('[dbo].[users]', RESEED, 2017)
+DBCC CHECKIDENT ('[dbo].[users]', RESEED, 2019)
 GO
 
 
