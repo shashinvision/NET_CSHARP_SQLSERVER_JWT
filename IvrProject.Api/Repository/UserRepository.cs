@@ -22,13 +22,12 @@ public class UserRepository : DbContext
 
         try
         {
-            string storedProcedure = "SP_USERS_GET";
+            string view = "SELECT * FROM VW_USERS_GET";
 
             // Use _connection from the father class
             var users = await _connection.QueryAsync<UserDto>(
-                storedProcedure,
-                // new { RUT = int.Parse(rutWithoutLastDigit) },
-                commandType: CommandType.StoredProcedure
+                view,
+                commandType: CommandType.Text
             );
 
             return users.ToList();
