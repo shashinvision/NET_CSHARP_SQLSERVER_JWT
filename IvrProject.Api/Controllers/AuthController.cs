@@ -30,7 +30,7 @@ public class AuthController : ControllerBase
 
             return Ok(new { user_jwt, refreshToken });
         }
-        catch (System.Exception ex)
+        catch (System.Exception)
         {
 
             return BadRequest("Error try login");

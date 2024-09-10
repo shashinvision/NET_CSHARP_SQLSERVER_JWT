@@ -13,6 +13,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+
+
 builder.Services.AddScoped<ICommService<UserAddDto, UserDto, InsertedUserDto>, UsersService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
@@ -36,6 +38,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("PermitirApiRequest", builder =>
+        {
+            builder.WithOrigins("*")  // Only allow specific origin
+                  .AllowAnyHeader()  // Allow any header, like Authorization
+                  .WithMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");  // Allow necessary HTTP methods
+        });
+    });
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -49,6 +61,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("PermitirApiRequest");
 
 app.UseHttpsRedirection();
 
