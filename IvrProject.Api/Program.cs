@@ -38,15 +38,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-builder.Services.AddCors(options =>
-    {
-        options.AddPolicy("PermitirApiRequest", builder =>
-        {
-            builder.WithOrigins("*")  // Only allow specific origin
-                  .AllowAnyHeader()  // Allow any header, like Authorization
-                  .WithMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");  // Allow necessary HTTP methods
-        });
-    });
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -61,7 +52,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseCors("PermitirApiRequest");
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials()
+    .WithOrigins("http://localhost:4200", "https://localhost:4200"));
 
 app.UseHttpsRedirection();
 
