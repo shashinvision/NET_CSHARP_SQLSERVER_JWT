@@ -16,11 +16,6 @@ export class LoginComponent {
   public username: string = '';
   public password: string = '';
 
-  loginGet() {
-    console.log('login method called');
-    console.log(this.username, this.password);
-  }
-
   onSubmit() {
     const login: LoginDto = {
       name: this.username,
