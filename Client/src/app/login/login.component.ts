@@ -27,7 +27,7 @@ export class LoginComponent {
       console.log(localStorage.getItem('user'));
 
       if (localStorage.getItem('user')) {
-        this.router.navigate(['/']);
+        this.router.navigate(['home']);
 
       }
     });

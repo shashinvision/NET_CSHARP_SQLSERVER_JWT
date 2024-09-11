@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../_services/login.service';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
@@ -25,10 +25,7 @@ export class SidebarComponent implements OnInit {
         this.currentUrl = event.url;
       }
     });
+
   }
 
-  isActiveLink(href: string): boolean {
-
-    return this.currentUrl === href;
-  }
 }

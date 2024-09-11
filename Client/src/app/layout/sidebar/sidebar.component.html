@@ -65,14 +65,22 @@
           <ul class="nav nav-treeview">
             @if(login.roles().includes('admin')){
             <li class="nav-item">
-              <a href="admin" [class.active]="isActiveLink('/admin')"  class="nav-link">
+              <a
+                routerLink="admin"
+                routerLinkActive="active"
+                class="nav-link"
+              >
                 <i class="far fa-circle nav-icon"></i>
                 <p>Admin Dashboard</p>
               </a>
             </li>
             }
             <li class="nav-item">
-              <a href="/" [class.active]="isActiveLink('/')"  class="nav-link">
+              <a
+                routerLink="home"
+                routerLinkActive="active"
+                class="nav-link"
+              >
                 <i class="far fa-circle nav-icon"></i>
                 <p>Dashboard v2</p>
               </a>
