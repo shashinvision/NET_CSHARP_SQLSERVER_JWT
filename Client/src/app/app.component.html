@@ -1,15 +1,14 @@
+<router-outlet>
+  @if (_loginService.currentUser() !== null) {
 
-  <router-outlet>
+  <app-nav></app-nav>
 
-    <app-nav></app-nav>
+  <app-sidebar></app-sidebar>
 
-    <app-sidebar></app-sidebar>
+  <!-- Automatically injected components with my views components, Based on content component on Layout path -->
 
-    <!-- Automatically injected components with my views components, Based on content component on Layout path -->
+  <app-control></app-control>
 
-    <app-control></app-control>
-
-    <app-footer></app-footer>
-
-
-  </router-outlet>
+  <app-footer></app-footer>
+  }
+</router-outlet>
