@@ -46,7 +46,7 @@ public class TokenService : ITokenService
                 // Add more claims if necessary, e.g. roles or email
                 new Claim(JwtRegisteredClaimNames.UniqueName, userDto.name),  // "name" claim
                 // new Claim("role_id", loginDto.role_id.ToString()),  
-                new Claim(ClaimTypes.Role, string.Join(",", userDto.role_id.ToString()))
+                new Claim(ClaimTypes.Role, string.Join(",", userDto.role_name))
 
             };
 

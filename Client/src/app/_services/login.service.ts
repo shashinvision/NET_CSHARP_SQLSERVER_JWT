@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { LoginDto } from '../_models/LoginDto';
 import { HttpClient } from '@angular/common/http';
 import { LoginResponseDto } from '../_models/LoginResponseDto';
@@ -11,6 +11,20 @@ export class LoginService {
   private http = inject(HttpClient);
   baseUrl = 'http://localhost:5093/api/';
   currentUser = signal<LoginResponseDto | null>(null);
+  roles = computed(() => {
+    const user = this.currentUser();
+    if (user && user.user_jwt) {
+      try {
+        const jwtPayload = JSON.parse(atob(user.user_jwt.split('.')[1]));
+        const role = jwtPayload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+        return Array.isArray(role) ? role : [role];
+      } catch (error) {
+        console.error('Failed to parse JWT:', error);
+        return [];
+      }
+    }
+    return [];
+  });
 
   constructor() {
     this.checkCurrentUser();
@@ -48,4 +62,7 @@ export class LoginService {
       this.currentUser.set(JSON.parse(storedUser));
     }
   }
+
+
+
 }

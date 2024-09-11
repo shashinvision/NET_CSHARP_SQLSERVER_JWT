@@ -47,7 +47,8 @@ public class AuthService : IAuthService
         {
             id = user.id,
             name = user.name,
-            role_id = user.role_id
+            role_id = user.role_id,
+            role_name = user.role_name
         };
 
         // Generate JWT token
