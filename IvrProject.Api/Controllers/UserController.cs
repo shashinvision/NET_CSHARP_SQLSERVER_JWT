@@ -57,7 +57,7 @@ public class UserController : ControllerBase
 
     }
 
-    [Authorize(Roles = "2")]
+    [Authorize(Roles = "admin, moderator")]
     [HttpPost("User")]
     public async Task<ActionResult<InsertedUserDto>> AddUser([FromBody] UserAddDto userAddDto)
     {
