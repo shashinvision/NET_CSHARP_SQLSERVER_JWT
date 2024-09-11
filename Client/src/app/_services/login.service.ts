@@ -30,7 +30,6 @@ export class LoginService {
     this.checkCurrentUser();
   }
 
-
   login(loginDto: LoginDto) {
     return this.http.post<LoginResponseDto>(this.baseUrl + 'Auth/login', loginDto).pipe(
       map(user => {
