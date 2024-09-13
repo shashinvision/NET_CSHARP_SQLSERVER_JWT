@@ -1,0 +1,63 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <app-content-header
+    [title]="title"
+    [item]="item"
+    [itemActive]="itemActive"
+  ></app-content-header>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <!-- Search Input -->
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <input
+            type="text"
+            pInputText
+            placeholder="Search"
+            (input)="applyFilterGlobal($event)"
+            class="form-control"
+          />
+        </div>
+      </div>
+
+      <!-- Data Table with Pagination and Search -->
+      <p-table
+        #table
+        [value]="cars"
+        paginator
+        [rows]="5"
+        [rowsPerPageOptions]="[5, 10, 20]"
+        [globalFilterFields]="['brand', 'year', 'color', 'vin']"
+        responsiveLayout="scroll"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Brand</th>
+            <th>Year</th>
+            <th>Color</th>
+            <th>Vin</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-car>
+          <tr>
+            <td>{{ car.brand }}</td>
+            <td>{{ car.year }}</td>
+            <td>{{ car.color }}</td>
+            <td>{{ car.vin }}</td>
+          </tr>
+        </ng-template>
+
+        <!-- Pagination Footer -->
+        <ng-template pTemplate="paginatorleft">
+          <div>Total Records: {{ cars.length }}</div>
+        </ng-template>
+      </p-table>
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->

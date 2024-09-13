@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './_views/home/home.component';
-import { LoginComponent } from './_views/login/login.component';
+import { HomeComponent } from './views/home/home.component';
+import { LoginComponent } from './views/login/login.component';
 import { authGuard } from './_guards/auth.guard';
-import { AdminComponent } from './_views/admin/admin.component';
+import { AdminComponent } from './views/admin/admin.component';
 import { adminGuard } from './_guards/admin.guard';
-import { LogoutComponent } from './_views/logout/logout.component';
-import { ErrorComponent } from './_views/error/error.component';
+import { LogoutComponent } from './views/logout/logout.component';
+import { ErrorComponent } from './views/error/error.component';
 
 
 export const routes: Routes = [
