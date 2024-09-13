@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginService } from '../_services/login.service';
+import { LoginService } from '../../_services/login.service';
 
 @Component({
   selector: 'app-logout',

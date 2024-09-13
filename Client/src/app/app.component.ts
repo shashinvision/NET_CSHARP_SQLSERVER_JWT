@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {
   SidebarComponent
-} from './layout/sidebar/sidebar.component';
-import { FooterComponent } from './layout/footer/footer.component';
-import { NavComponent } from './layout/nav/nav.component';
-import { ControlComponent } from './layout/control/control.component';
+} from './_components/layout/sidebar/sidebar.component';
+import { FooterComponent } from './_components/layout/footer/footer.component';
+import { NavComponent } from './_components/layout/nav/nav.component';
+import { ControlComponent } from './_components/layout/control/control.component';
 import { LoginService } from './_services/login.service';
 @Component({
   selector: 'app-root',
