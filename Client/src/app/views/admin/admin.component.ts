@@ -2,7 +2,6 @@ import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { ContentHeaderComponent } from '../../components/shared/content-header/content-header.component';
 import { Table, TableModule } from 'primeng/table';
 import { UserService } from '../../_services/user.service';
-import { UserDto } from '../../_models/UserDto';
 
 @Component({
   selector: 'app-admin',
@@ -34,7 +33,6 @@ export class AdminComponent implements OnInit {
       this.table.filterGlobal(filterValue, 'contains');
     }
   }
-
 
   async getUsers() : Promise<void> {
     let usersResponse = await this.userService.get()
