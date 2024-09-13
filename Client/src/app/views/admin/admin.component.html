@@ -10,6 +10,8 @@
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
+
+
       <!-- Search Input -->
       <div class="row mb-3">
         <div class="col-md-4">
@@ -26,7 +28,7 @@
       <!-- Data Table with Pagination and Search -->
       <p-table
         #table
-        [value]="cars"
+        [value]="users()"
         paginator
         [rows]="5"
         [rowsPerPageOptions]="[5, 10, 20]"
@@ -35,25 +37,27 @@
       >
         <ng-template pTemplate="header">
           <tr>
-            <th>Brand</th>
-            <th>Year</th>
-            <th>Color</th>
-            <th>Vin</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Role ID</th>
+            <th>Role Name</th>
+            <th>Status</th>
           </tr>
         </ng-template>
 
-        <ng-template pTemplate="body" let-car>
+        <ng-template pTemplate="body" let-user>
           <tr>
-            <td>{{ car.brand }}</td>
-            <td>{{ car.year }}</td>
-            <td>{{ car.color }}</td>
-            <td>{{ car.vin }}</td>
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.role_id }}</td>
+            <td>{{ user.role_name }}</td>
+            <td>{{ user.status }}</td>
           </tr>
         </ng-template>
 
         <!-- Pagination Footer -->
         <ng-template pTemplate="paginatorleft">
-          <div>Total Records: {{ cars.length }}</div>
+          <div>Total Records: {{ users().length }}</div>
         </ng-template>
       </p-table>
     </div>

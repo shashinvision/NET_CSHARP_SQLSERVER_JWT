@@ -2,14 +2,16 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { LoginDto } from '../_models/LoginDto';
 import { HttpClient } from '@angular/common/http';
 import { LoginResponseDto } from '../_models/LoginResponseDto';
-import { map, catchError, throwError } from 'rxjs';
+import { map, catchError, throwError, Observable } from 'rxjs';
+import { IloginService } from '../_interfaces/Ilogin.service';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class LoginService implements IloginService {
   private http = inject(HttpClient);
-  baseUrl = 'http://localhost:5093/api/';
+  baseUrl = environment.apiUrl;
   currentUser = signal<LoginResponseDto | null>(null);
   roles = computed(() => {
     const user = this.currentUser();
@@ -30,11 +32,11 @@ export class LoginService {
     this.checkCurrentUser();
   }
 
-  login(loginDto: LoginDto) {
-    return this.http.post<LoginResponseDto>(this.baseUrl + 'Auth/login', loginDto).pipe(
-      map(user => {
-        if (user) {
-          this.setCurrentUser(user);
+  async login(loginDto: LoginDto): Promise<Observable<void>> {
+    return await this.http.post<LoginResponseDto>(this.baseUrl + 'Auth/login', loginDto).pipe(
+      map(loginResponseDto => {
+        if (loginResponseDto) {
+          this.setCurrentUser(loginResponseDto);
         }
       }),
       catchError(error => {

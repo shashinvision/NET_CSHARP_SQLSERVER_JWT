@@ -1,15 +1,32 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { ContentHeaderComponent } from '../../components/shared/content-header/content-header.component';
 import { Table, TableModule } from 'primeng/table';
+import { UserService } from '../../_services/user.service';
+import { UserDto } from '../../_models/UserDto';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
   imports: [ContentHeaderComponent, TableModule],
   templateUrl: './admin.component.html',
-  styleUrl: './admin.component.css'
+  styleUrl: './admin.component.css',
+  providers: [UserService]
 })
-export class AdminComponent {
+export class AdminComponent implements OnInit {
+
+  private userService = inject(UserService);
+  title: string = 'Admin Dashboard IVR';
+  item: string = 'Admin';
+  itemActive: string = 'Dashoard Admin';
+  users = this.userService.users;
+
+  // Access the table component using ViewChild
+  @ViewChild('table') table!: Table;
+
+  async ngOnInit(): Promise<void> {
+    await this.getUsers();
+  }
+
   // Method to handle global filtering
   applyFilterGlobal(event: any) {
     const filterValue = event.target.value;
@@ -17,22 +34,11 @@ export class AdminComponent {
       this.table.filterGlobal(filterValue, 'contains');
     }
   }
-  title: string = 'Admin Dashboard IVR';
-  item: string = 'Admin';
-  itemActive: string = 'Dashoard Admin';
 
-  cars: any[] = [];
 
-  // Access the table component using ViewChild
-  @ViewChild('table') table!: Table;
-
-  constructor() {
-    this.cars = [
-      { brand: 'Toyota', year: 2018, color: 'Blue', vin: 'ABC123' },
-      { brand: 'Ford', year: 2017, color: 'Black', vin: 'DEF456' },
-      { brand: 'Chevrolet', year: 2016, color: 'White', vin: 'GHI789' },
-      { brand: 'Honda', year: 2019, color: 'Red', vin: 'JKL012' },
-    ];
+  async getUsers() : Promise<void> {
+    let usersResponse = await this.userService.get()
+    usersResponse.subscribe();
   }
-
 }
+

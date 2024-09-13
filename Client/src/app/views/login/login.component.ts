@@ -18,12 +18,13 @@ export class LoginComponent {
   public username: string = '';
   public password: string = '';
 
-  onSubmit() {
+  async onSubmit() {
     const login: LoginDto = {
       name: this.username,
       password: this.password
     };
-    this.loginService.login(login).subscribe(() => {
+    
+    (await this.loginService.login(login)).subscribe(() => {
       console.log(localStorage.getItem('user'));
 
       if (localStorage.getItem('user')) {
