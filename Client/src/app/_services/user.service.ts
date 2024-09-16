@@ -37,7 +37,12 @@ export class UserService implements IRestService {
   }
 
   setUsers(users: UserDto[]) {
+    this.cleanusers();
     // localStorage.setItem('users', JSON.stringify(users));
     this.users.set(users);
+  }
+
+  cleanusers() {
+    this.users.set([]);
   }
 }
