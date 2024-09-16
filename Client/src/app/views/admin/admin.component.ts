@@ -8,6 +8,7 @@ import { DialogModule } from 'primeng/dialog';
 import { FormsModule } from '@angular/forms';
 import { UserAddDto } from '../../_models/UserAddDto';
 import { UserDto } from '../../_models/UserDto';
+import { RolesDto } from '../../_models/RolesDto';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class AdminComponent implements OnInit {
   item: string = 'Admin';
   itemActive: string = 'Dashoard Admin';
   users = signal<UserDto[]>([]); // Changed to array of UserDto
-  roles = this.userService.roles;
+  roles = signal<RolesDto[]>([]);
   email = new FormControl('', [
     Validators.required,
     Validators.email
@@ -54,7 +55,7 @@ export class AdminComponent implements OnInit {
   }
 
   getUsers() {
-    this.userService.get().subscribe();
+    this.userService.get();
     this.users = this.userService.users;
   }
 
@@ -76,7 +77,7 @@ export class AdminComponent implements OnInit {
       next: async (response) => {
         console.log('User added successfully:', response);
         this.displayModal = false;
-        await this.getUsers();  // Refresh users after adding a new one
+        this.getUsers();  // Refresh users after adding a new one
       },
       error: (err) => {
         console.error('Failed to add user:', err);
@@ -86,8 +87,8 @@ export class AdminComponent implements OnInit {
   }
 
   getRoles() {
-    this.userService.getRoles().subscribe();
-
+    this.userService.getRoles();
+    this.roles = this.userService.roles;
   }
 
   cleanModalAdd() {

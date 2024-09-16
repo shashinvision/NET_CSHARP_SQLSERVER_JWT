@@ -1,7 +1,7 @@
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 
 export interface IRestService {
-  get(): Observable<void>;
+  get(): Subscription;
   add(T: any): Observable<any>;
   update(T: any): Promise<Observable<void>>;
   delete(T: any): Promise<Observable<void>>;

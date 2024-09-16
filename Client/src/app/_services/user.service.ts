@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { IRestService } from '../_interfaces/Irest.service';
-import { catchError, map, Observable, Observer, throwError } from 'rxjs';
+import { catchError, map, Observable, Observer, throwError, Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
 import { UserDto } from '../_models/UserDto';
@@ -16,7 +16,7 @@ export class UserService implements IRestService {
   roles = signal<RolesDto[]>([]);
 
 
-  get(): Observable<void> {
+  get(): Subscription {
     return this.http.get<UserDto[]>(this.baseUrl + 'User/Users').pipe(
       map(userDtos => {
         if (userDtos && userDtos.length > 0) {
@@ -27,10 +27,10 @@ export class UserService implements IRestService {
         console.error('Failed to get Users:', error);
         return throwError(() => new Error('Failed to get Users, please try again later.'));
       })
-    );
+    ).subscribe();
   }
 
-  getRoles(): Observable<void> {
+  getRoles(): Subscription {
     return this.http.get<RolesDto[]>(this.baseUrl + 'User/Roles').pipe(
       map(roleDtos => {
         if (roleDtos && roleDtos.length > 0) {
@@ -41,7 +41,7 @@ export class UserService implements IRestService {
         console.error('Failed to get Roles:', error);
         return throwError(() => new Error('Failed to get Roles, please try again later.'));
       })
-    );
+    ).subscribe();
   }
 
   add(userAddDto: UserAddDto): Observable<UserAddResponseDto> {
