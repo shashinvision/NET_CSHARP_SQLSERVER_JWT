@@ -1,7 +1,3 @@
-using System;
-using Microsoft.AspNetCore.Mvc;
-using IvrProject.Api.Model;
-
 namespace IvrProject.Api.Interfaces;
 
 public interface ICommService<TEntity, TEntityDto, TInsertDto>
@@ -12,4 +8,5 @@ public interface ICommService<TEntity, TEntityDto, TInsertDto>
     public Task<TInsertDto> Add(TEntity entity);
     public Task<TEntityDto> Update(TEntity entity);
     public Task<TEntityDto> Delete(int id);
+    
 }

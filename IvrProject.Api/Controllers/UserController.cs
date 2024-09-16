@@ -13,17 +13,19 @@ namespace IvrProject.Api.Controllers;
 [Route("api/[controller]")]
 public class UserController : ControllerBase
 {
-    private readonly ICommService<UserAddDto, UserDto, InsertedUserDto> _usersService;
+    private readonly ICommService<UserAddDto, UserDto, InsertedUserDto> _userCommService;
+    private readonly IRolesService _userRolesService;
 
-    public UserController(ICommService<UserAddDto, UserDto, InsertedUserDto> usersService)
+    public UserController(ICommService<UserAddDto, UserDto, InsertedUserDto> userCommService, IRolesService userRolesService)
     {
-        _usersService = usersService;
+        _userCommService = userCommService;
+        _userRolesService = userRolesService;
     }
 
     [HttpGet("Users")]
     public async Task<ActionResult<List<UserDto>>> GetUsers()
     {
-        var users = await _usersService.Get();
+        var users = await _userCommService.Get();
         return Ok(users);
 
     }
@@ -31,7 +33,7 @@ public class UserController : ControllerBase
     public async Task<ActionResult<UserDto>> GetUser(int id)
     {
 
-        var user = await _usersService.GetById(id);
+        var user = await _userCommService.GetById(id);
 
         if (user == null)
         {
@@ -46,7 +48,7 @@ public class UserController : ControllerBase
     public async Task<ActionResult<UserDto>> GetUserByName(string name)
     {
 
-        var user = await _usersService.GetByName(name);
+        var user = await _userCommService.GetByName(name);
 
         if (user == null)
         {
@@ -64,7 +66,7 @@ public class UserController : ControllerBase
 
         try
         {
-            var user = await _usersService.Add(userAddDto);
+            var user = await _userCommService.Add(userAddDto);
 
             if (user == null)
             {
@@ -86,7 +88,7 @@ public class UserController : ControllerBase
 
         try
         {
-            var user = await _usersService.Update(userAddDto);
+            var user = await _userCommService.Update(userAddDto);
 
             if (user == null)
             {
@@ -108,7 +110,7 @@ public class UserController : ControllerBase
 
         try
         {
-            var user = await _usersService.Delete(id);
+            var user = await _userCommService.Delete(id);
 
             if (user == null)
             {
@@ -124,5 +126,11 @@ public class UserController : ControllerBase
             return BadRequest("Error try delete user");
         }
 
+    }
+    [HttpGet("Roles")]
+    public async Task<ActionResult<List<RolesDto>>> GetRoles(){
+
+        var roles = await _userRolesService.GetRoles();
+        return Ok(roles);
     }
 }

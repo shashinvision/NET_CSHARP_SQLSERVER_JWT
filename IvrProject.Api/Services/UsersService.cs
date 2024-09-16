@@ -5,7 +5,7 @@ using IvrProject.Api.Interfaces;
 using IvrProject.Api.Repository;
 namespace IvrProject.Api.Services;
 
-public class UsersService : ICommService<UserAddDto, UserDto, InsertedUserDto>
+public class UsersService : ICommService<UserAddDto, UserDto, InsertedUserDto>, IRolesService
 {
     private readonly UserRepository _userRepository;
     private readonly IConfiguration _configuration;
@@ -67,6 +67,12 @@ public class UsersService : ICommService<UserAddDto, UserDto, InsertedUserDto>
 
         return userDto;
 
+    }
+
+    public async Task<List<RolesDto>> GetRoles()
+    {
+        List<RolesDto> roles = await _userRepository.GetRoles();
+        return roles;
     }
 
 }

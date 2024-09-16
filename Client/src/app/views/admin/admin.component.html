@@ -7,12 +7,46 @@
     [itemActive]="itemActive"
   ></app-content-header>
 
-  <!-- Main content -->
+
+  <p-dialog header="New User" [(visible)]="displayModal" [modal]="true">
+    <form method="post" (ngSubmit)="newUser()">
+
+      <section>
+        <label for="name">Name:</label>
+        <input type="email" class="form-control" id="name" name="name" pInputText [(ngModel)]="name" placeholder="Enter an valid email" required >
+
+
+      </section>
+      <section>
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" id="password" name="password" pInputText [(ngModel)]="password">
+      </section>
+      <section>
+        <label for="passwordConfirm">Confirm Password:</label>
+        <input type="passwordConfirm" class="form-control" id="passwordConfirm" name="passwordConfirm" pInputText [(ngModel)]="passwordConfirm">
+      </section>
+      <section>
+        <label for="rol">Rol:</label>
+        <select name="rol" [(ngModel)]="role_id" id="rol" class="form-control">
+          <option *ngFor="let rol of roles()" [value]="rol.id">{{rol.name}}</option>
+        </select>
+      </section>
+      <br>
+      <button class="btn btn-success w-100" type="submit">Create</button>
+    </form>
+  </p-dialog>
+
+  <div class="row">
+    <div class="col-12">
+        <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
       <!-- Search Input -->
-      <div class="row mb-3">
+      <div class="row mb-3 d-flex justify-content-between">
         <div class="col-md-4">
+          <button class="btn btn-primary" (click)="displayModal = true">New User</button>
+        </div>
+        <div class="col-md-2">
           <input
             type="text"
             pInputText
@@ -21,6 +55,7 @@
             class="form-control"
           />
         </div>
+
       </div>
 
       <!-- Data Table with Pagination and Search -->
@@ -60,6 +95,7 @@
       </p-table>
     </div>
   </section>
-  <!-- /.content -->
+    </div>
+  </div>
 </div>
 <!-- /.content-wrapper -->

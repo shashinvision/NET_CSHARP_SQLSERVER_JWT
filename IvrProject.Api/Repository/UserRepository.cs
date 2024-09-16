@@ -14,7 +14,35 @@ public class UserRepository : DbContext
     {
     }
 
+    public async Task<List<RolesDto>> GetRoles()
+    {
 
+        Connect();
+        try
+        {
+            string view = "SELECT id, name FROM VW_ROLES_GET";
+
+            // Use _connection from the father class
+            var roles = await _connection.QueryAsync<RolesDto>(
+                view,
+                commandType: CommandType.Text
+            );
+
+            return roles.ToList();
+        }
+
+        catch (System.Exception ex)
+        {
+            Console.WriteLine("Error: " + ex.Message);
+            throw;
+        }
+        finally
+        {
+            Close();
+        }
+
+
+    }
     public async Task<List<UserDto>> GetUsers()
     {
 
