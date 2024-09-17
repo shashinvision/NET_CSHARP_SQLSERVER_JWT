@@ -10,6 +10,7 @@ import { UserAddResponseDto } from '../_models/UserAddResponseDto';
 
 @Injectable()  // Not on root, use injector direct on Admin Component only
 export class UserService implements IRestService {
+
   private http = inject(HttpClient);
   baseUrl = environment.apiUrl;
   users = signal<UserDto[]>([]); // Changed to array of UserDto
@@ -48,11 +49,11 @@ export class UserService implements IRestService {
     return this.http.post<UserAddResponseDto>(this.baseUrl + 'User/User', userAddDto);
   }
 
-
-  update(T: any): Promise<Observable<void>> {
-    throw new Error('Method not implemented.');
+  update(userAddDto: UserAddDto): Observable<UserAddResponseDto> {
+    return this.http.put<UserAddResponseDto>(this.baseUrl + 'User/User', userAddDto);
   }
-  delete(T: any): Promise<Observable<void>> {
+
+  delete(T: any): Observable<void> {
     throw new Error('Method not implemented.');
   }
 

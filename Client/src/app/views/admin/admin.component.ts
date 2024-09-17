@@ -26,8 +26,8 @@ export class AdminComponent implements OnInit {
   private messageService = inject(MessageService);
 
   showError(message: string = '') {
-    this.messageService.add({severity:'error', summary: 'Error', detail: message});
-}
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
+  }
 
 
   title: string = 'Admin Dashboard IVR';
@@ -41,6 +41,8 @@ export class AdminComponent implements OnInit {
   ]);
 
   displayModal = false;
+  modalHeader = '';
+  public id: number = 0;
   public name: string = '';
   public password: string = '';
   public passwordConfirm: string = '';
@@ -67,7 +69,7 @@ export class AdminComponent implements OnInit {
     this.users = this.userService.users;
   }
 
-  async newUser() {
+  async saveUser() {
 
     if (this.name == '') return this.showError("Name is required");
     if (this.name && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(this.name)) return this.showError("Invalid email");
@@ -78,10 +80,19 @@ export class AdminComponent implements OnInit {
 
     let userAddDto = new UserAddDto();
 
+    userAddDto.id = this.id;
     userAddDto.name = this.name;
     userAddDto.role_id = this.role_id;
     userAddDto.password = this.password;
+    if (this.id == 0) {
+      this.userAdd(userAddDto);
+    } else {
+      this.userUpdate(userAddDto);
+    }
 
+  }
+
+  userAdd(userAddDto: UserAddDto) {
     this.userService.add(userAddDto).subscribe({
       next: async (response) => {
         console.log('User added successfully:', response);
@@ -94,6 +105,19 @@ export class AdminComponent implements OnInit {
       }
     });
   }
+  userUpdate(userAddDto: UserAddDto) {
+    this.userService.update(userAddDto).subscribe({
+      next: async (response) => {
+        console.log('User added successfully:', response);
+        this.displayModal = false;
+        this.getUsers();  // Refresh users after adding a new one
+      },
+      error: (err) => {
+        console.error('Failed to add user:', err);
+        alert('Failed to update user, please try again.');
+      }
+    });
+  }
 
   getRoles() {
     this.userService.getRoles();
@@ -101,10 +125,32 @@ export class AdminComponent implements OnInit {
   }
 
   cleanModalAdd() {
+    this.id = 0;
     this.name = '';
     this.password = '';
     this.passwordConfirm = '';
     this.role_id = 0;
+  }
+
+  openModal(action: string, user?: UserDto) {
+
+    if (action == 'add') {
+      this.cleanModalAdd();
+      this.modalHeader = 'Add User';
+      this.displayModal = true;
+    } else if (action == 'edit') {
+      this.cleanModalAdd();
+      this.modalHeader = 'Update User';
+
+      if (user) {
+        this.id = user.id;
+        this.name = user.name;
+        this.role_id = user.role_id;
+      }
+
+      this.displayModal = true;
+    }
+
   }
 
 }

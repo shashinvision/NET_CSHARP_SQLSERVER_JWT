@@ -7,8 +7,8 @@
     [itemActive]="itemActive"
   ></app-content-header>
   <p-toast></p-toast>
-  <p-dialog header="New User" [(visible)]="displayModal" [modal]="true">
-    <form method="post" (ngSubmit)="newUser()">
+  <p-dialog header="{{modalHeader}}" [(visible)]="displayModal" [modal]="true">
+    <form method="post" (ngSubmit)="saveUser()">
       <section>
         <label for="name">Email:</label>
         <input
@@ -19,7 +19,8 @@
           pInputText
           [(ngModel)]="name"
           placeholder="Enter an valid email"
-          required
+            [attr.required]="id !== 0"
+            [attr.disabled]="id === 0"
         />
       </section>
       <section>
@@ -53,7 +54,7 @@
         </select>
       </section>
       <br />
-      <button class="btn btn-success w-100" type="submit">Create</button>
+      <button class="btn btn-success w-100" type="submit">Save</button>
     </form>
   </p-dialog>
 
@@ -65,7 +66,7 @@
           <!-- Search Input -->
           <div class="row mb-3 d-flex justify-content-between">
             <div class="col-md-4">
-              <button class="btn btn-primary" (click)="displayModal = true">
+              <button class="btn btn-primary" (click)="openModal('add')">
                 New User
               </button>
             </div>
@@ -119,7 +120,7 @@
                 <td class="text-center"><i class="pi pi-times"></i></td>
                 }
                 <td class="">
-                  <button class="btn btn-primary mx-1">
+                  <button class="btn btn-primary mx-1" (click)="openModal('edit', user)">
                     Edit <i class="pi pi-file-edit"></i>
                   </button>
                   @if (user.status) {
