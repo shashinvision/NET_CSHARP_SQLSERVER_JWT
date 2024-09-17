@@ -5,12 +5,16 @@ import { LoginResponseDto } from '../_models/LoginResponseDto';
 import { map, catchError, throwError, Observable } from 'rxjs';
 import { IloginService } from '../_interfaces/Ilogin.service';
 import { environment } from '../../environments/environment.development';
+import { routes } from '../app.routes';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService implements IloginService {
   private http = inject(HttpClient);
+  private router = inject(Router);
+
   baseUrl = environment.apiUrl;
   currentUser = signal<LoginResponseDto | null>(null);
   roles = computed(() => {
@@ -66,9 +70,15 @@ export class LoginService implements IloginService {
 
   refreshToken() {
      this.http.post<LoginResponseDto>(this.baseUrl + 'Auth/refreshtoken', { refreshToken: localStorage.getItem('refreshToken') }).subscribe(
-      loginResponseDto => {
-        if (loginResponseDto) {
-          this.setCurrentUser(loginResponseDto);
+      {
+        next: loginResponseDto => {
+          if (loginResponseDto) {
+            this.setCurrentUser(loginResponseDto);
+          }
+        },
+        error: error => {
+          console.error('Refresh token error:', error);
+          this.router.navigate(['/login']);
         }
       }
     );

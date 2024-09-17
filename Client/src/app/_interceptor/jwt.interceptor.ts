@@ -12,7 +12,7 @@ export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
         Authorization: `Bearer ${loginService.currentUser()?.user_jwt}`
       }
     })
-  } 
+  }
 
   return next(req);
 };
