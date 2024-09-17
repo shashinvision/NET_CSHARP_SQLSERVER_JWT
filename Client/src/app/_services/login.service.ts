@@ -36,8 +36,8 @@ export class LoginService implements IloginService {
     this.checkCurrentUser();
   }
 
-  async login(loginDto: LoginDto): Promise<Observable<void>> {
-    return await this.http.post<LoginResponseDto>(this.baseUrl + 'Auth/login', loginDto).pipe(
+   login(loginDto: LoginDto): Observable<void> {
+    return this.http.post<LoginResponseDto>(this.baseUrl + 'Auth/login', loginDto).pipe(
       map(loginResponseDto => {
         if (loginResponseDto) {
           this.setCurrentUser(loginResponseDto);

@@ -24,7 +24,7 @@ export class LoginComponent {
       password: this.password
     };
 
-    (await this.loginService.login(login)).subscribe(() => {
+    this.loginService.login(login).subscribe(() => {
       // console.log(localStorage.getItem('user'));
 
       if (localStorage.getItem('user')) {
