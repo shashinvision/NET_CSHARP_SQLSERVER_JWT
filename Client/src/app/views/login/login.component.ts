@@ -23,9 +23,9 @@ export class LoginComponent {
       name: this.username,
       password: this.password
     };
-    
+
     (await this.loginService.login(login)).subscribe(() => {
-      console.log(localStorage.getItem('user'));
+      // console.log(localStorage.getItem('user'));
 
       if (localStorage.getItem('user')) {
         this.router.navigate(['home']);

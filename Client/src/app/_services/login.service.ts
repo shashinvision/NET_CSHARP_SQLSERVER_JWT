@@ -58,7 +58,7 @@ export class LoginService implements IloginService {
   setCurrentUser(user: LoginResponseDto) {
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUser.set(user);
-    console.log(this.currentUser());
+    // console.log(this.currentUser());
   }
 
   checkCurrentUser() {
