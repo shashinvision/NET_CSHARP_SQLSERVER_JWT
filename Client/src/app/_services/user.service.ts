@@ -8,7 +8,7 @@ import { RolesDto } from '../_models/RolesDto';
 import { UserAddDto } from '../_models/UserAddDto';
 import { UserAddResponseDto } from '../_models/UserAddResponseDto';
 
-@Injectable()
+@Injectable()  // Not on root, use injector direct on Admin Component only
 export class UserService implements IRestService {
   private http = inject(HttpClient);
   baseUrl = environment.apiUrl;

@@ -6,13 +6,12 @@
     [item]="item"
     [itemActive]="itemActive"
   ></app-content-header>
-
-
+  <p-toast></p-toast>
   <p-dialog header="New User" [(visible)]="displayModal" [modal]="true">
     <form method="post" (ngSubmit)="newUser()">
 
       <section>
-        <label for="name">Name:</label>
+        <label for="name">Email:</label>
         <input type="email" class="form-control" id="name" name="name" pInputText [(ngModel)]="name" placeholder="Enter an valid email" required >
 
 
@@ -71,7 +70,7 @@
         <ng-template pTemplate="header">
           <tr>
             <th>ID</th>
-            <th>Name</th>
+            <th>Email</th>
             <th>Role ID</th>
             <th>Role Name</th>
             <th>Status</th>

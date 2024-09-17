@@ -9,19 +9,27 @@ import { FormsModule } from '@angular/forms';
 import { UserAddDto } from '../../_models/UserAddDto';
 import { UserDto } from '../../_models/UserDto';
 import { RolesDto } from '../../_models/RolesDto';
-
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [CommonModule, FormsModule, ContentHeaderComponent, TableModule, DialogModule],
+  imports: [CommonModule, FormsModule, ContentHeaderComponent, TableModule, DialogModule, ToastModule],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css',
-  providers: [UserService]
+  providers: [UserService, MessageService]
 })
 export class AdminComponent implements OnInit {
 
   private userService = inject(UserService);
+  private messageService = inject(MessageService);
+
+  showError(message: string = '') {
+    this.messageService.add({severity:'error', summary: 'Error', detail: message});
+}
+
+
   title: string = 'Admin Dashboard IVR';
   item: string = 'Admin';
   itemActive: string = 'Dashoard Admin';
@@ -61,11 +69,12 @@ export class AdminComponent implements OnInit {
 
   async newUser() {
 
-    if (this.name == '') return alert('Name is required');
-    if (this.name && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(this.name)) return alert('Invalid email');
-    if (this.password == '') return alert('Password is required');
-    if (this.password != this.passwordConfirm) return alert('Passwords do not match');
-    if (this.role_id == 0) return alert('Rol is required');
+    if (this.name == '') return this.showError("Name is required");
+    if (this.name && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(this.name)) return this.showError("Invalid email");
+    if (this.password == '') return this.showError("Password is required");
+    if (this.password.length < 8) return this.showError("Password must be at least 8 characters long");
+    if (this.password != this.passwordConfirm) return this.showError("Passwords do not match");
+    if (this.role_id == 0) return this.showError("Role is required");
 
     let userAddDto = new UserAddDto();
 
@@ -97,5 +106,6 @@ export class AdminComponent implements OnInit {
     this.passwordConfirm = '';
     this.role_id = 0;
   }
+
 }
 
