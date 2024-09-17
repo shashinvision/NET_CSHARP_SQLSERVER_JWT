@@ -55,8 +55,9 @@ public class AuthController : ControllerBase
 
             // Generate a new JWT token
             string user_jwt = _tokenService.GenerateJwtToken(userDto);
+            
 
-            return Ok(new { user_jwt });
+            return Ok(new { user_jwt, refresh.RefreshToken });
         }
         catch (System.Exception)
         {

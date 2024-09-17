@@ -64,6 +64,16 @@ export class LoginService implements IloginService {
     }
   }
 
+  refreshToken() {
+     this.http.post<LoginResponseDto>(this.baseUrl + 'Auth/refreshtoken', { refreshToken: localStorage.getItem('refreshToken') }).subscribe(
+      loginResponseDto => {
+        if (loginResponseDto) {
+          this.setCurrentUser(loginResponseDto);
+        }
+      }
+    );
+  }
+
 
 
 }
