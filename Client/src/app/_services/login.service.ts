@@ -69,19 +69,27 @@ export class LoginService implements IloginService {
   }
 
   refreshToken() {
-     this.http.post<LoginResponseDto>(this.baseUrl + 'Auth/refreshtoken', { refreshToken: localStorage.getItem('refreshToken') }).subscribe(
-      {
-        next: loginResponseDto => {
-          if (loginResponseDto) {
-            this.setCurrentUser(loginResponseDto);
+
+    let userLocalStorage = localStorage.getItem('user');
+
+    if (userLocalStorage) {
+      let userRefresh = JSON.parse(userLocalStorage);
+      this.http.post<LoginResponseDto>(this.baseUrl + 'Auth/refreshtoken', { refreshToken: userRefresh.refreshToken }).subscribe(
+        {
+          next: loginResponseDto => {
+            if (loginResponseDto) {
+              this.setCurrentUser(loginResponseDto);
+            }
+          },
+          error: error => {
+            console.error('Refresh token error:', error);
+            this.router.navigate(['/login']);
           }
-        },
-        error: error => {
-          console.error('Refresh token error:', error);
-          this.router.navigate(['/login']);
         }
-      }
-    );
+      );
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
 
