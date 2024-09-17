@@ -126,7 +126,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"refreshToken\": \"946391de-a553-4fcb-8648-12f20f52d76c\"\n}",
+							"raw": "{\n  \"refreshToken\": \"94b18ab3-edee-486e-b303-e5ed9fb139f7\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -149,7 +149,7 @@
 					},
 					"response": [
 						{
-							"name": "200",
+							"name": "RefreshToken",
 							"originalRequest": {
 								"method": "POST",
 								"header": [
@@ -164,7 +164,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"refreshToken\": \"946391de-a553-4fcb-8648-12f20f52d76c\"\n}",
+									"raw": "{\n  \"refreshToken\": \"94b18ab3-edee-486e-b303-e5ed9fb139f7\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -195,7 +195,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Sat, 07 Sep 2024 13:10:46 GMT"
+									"value": "Tue, 17 Sep 2024 13:25:41 GMT"
 								},
 								{
 									"key": "Server",
@@ -207,7 +207,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"user_jwt\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwianRpIjoiMTRhYjlkNGYtYTU3Zi00NjYzLWI1M2EtY2I1N2EyZjA3NjVlIiwidW5pcXVlX25hbWUiOiJhZG1pbkBhZG1pbi5jbCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjIiLCJleHAiOjE3MjU3MTY0NDcsImlzcyI6InlvdXJJc3N1ZXIxMjMiLCJhdWQiOiJ5b3VyQXVkaWVuY2UxMjMifQ.KHgo3Ny5fNrWz0eOq4-3_G3WdRJJ9ZuTALXd1hlA7q0\"\n}"
+							"body": "{\n    \"user_jwt\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwianRpIjoiZjA5YzhmYjItYzRkOS00YzAwLWE2YWYtYTNmMmE3NzM1MjNjIiwidW5pcXVlX25hbWUiOiJhZG1pbkBhZG1pbi5jbCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwiZXhwIjoxNzI2NTgxMzQyLCJpc3MiOiJ5b3VySXNzdWVyMTIzIiwiYXVkIjoieW91ckF1ZGllbmNlMTIzIn0._of-ZoKhJV-dfdJf9DixofntjsAA6rrrcdsMymmRs7U\",\n    \"refreshToken\": \"94b18ab3-edee-486e-b303-e5ed9fb139f7\"\n}"
 						}
 					]
 				}
@@ -227,7 +227,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwianRpIjoiZjgxMTJjM2YtMzlhNi00MmJkLWEzYWItM2JlYjVhZTlhYjMwIiwidW5pcXVlX25hbWUiOiJhZG1pbkBhZG1pbi5jbCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IjIiLCJleHAiOjE3MjU3MjYxNDgsImlzcyI6InlvdXJJc3N1ZXIxMjMiLCJhdWQiOiJ5b3VyQXVkaWVuY2UxMjMifQ.FCeb6O6terg04G60P9IftT1LJfCmxrgIdNLcxaWBWI4",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNCIsImp0aSI6IjI1YTc4NzdhLWRlZDItNGQwNC1iYjczLTc4YjdkOWJjMTE4MCIsInVuaXF1ZV9uYW1lIjoidXNlckB1c2VyLmNsIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoidXNlciIsImV4cCI6MTcyNjA2NzM1NCwiaXNzIjoieW91cklzc3VlcjEyMyIsImF1ZCI6InlvdXJBdWRpZW5jZTEyMyJ9.ts8tcrc_atAQvdUsx6bjOmdU_0oXVsGwd4uzb0UlbLM",
 									"type": "string"
 								}
 							]
@@ -245,7 +245,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"admin@admin.cl\",\n  \"password\": \"123\"\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -283,7 +283,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"name\": \"admin@admin.cl\",\n  \"password\": \"123\"\n}",
+									"raw": "",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -327,6 +327,120 @@
 							],
 							"cookie": [],
 							"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"admin@admin.cl\",\n        \"role_id\": 2,\n        \"role_name\": \"admin\",\n        \"status\": 1\n    },\n    {\n        \"id\": 11,\n        \"name\": \"supervisor@example.cl\",\n        \"role_id\": 3,\n        \"role_name\": \"supervisor\",\n        \"status\": 1\n    },\n    {\n        \"id\": 13,\n        \"name\": \"user@example.net\",\n        \"role_id\": 4,\n        \"role_name\": \"user\",\n        \"status\": 1\n    },\n    {\n        \"id\": 14,\n        \"name\": \"user2@example.cl\",\n        \"role_id\": 4,\n        \"role_name\": \"user\",\n        \"status\": 1\n    },\n    {\n        \"id\": 16,\n        \"name\": \"user4@example.cl\",\n        \"role_id\": 4,\n        \"role_name\": \"user\",\n        \"status\": 1\n    },\n    {\n        \"id\": 1016,\n        \"name\": \"supervisor2@example.cl\",\n        \"role_id\": 3,\n        \"role_name\": \"supervisor\",\n        \"status\": 1\n    },\n    {\n        \"id\": 1017,\n        \"name\": \"supervisor4@example.cl\",\n        \"role_id\": 3,\n        \"role_name\": \"supervisor\",\n        \"status\": 1\n    },\n    {\n        \"id\": 2017,\n        \"name\": \"felipe@felipe.cl\",\n        \"role_id\": 2,\n        \"role_name\": \"admin\",\n        \"status\": 1\n    },\n    {\n        \"id\": 2018,\n        \"name\": \"felipe2@felipe.cl\",\n        \"role_id\": 2,\n        \"role_name\": \"admin\",\n        \"status\": 1\n    },\n    {\n        \"id\": 2019,\n        \"name\": \"felipe4@felipe.cl\",\n        \"role_id\": 2,\n        \"role_name\": \"admin\",\n        \"status\": 1\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "get Roles",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNCIsImp0aSI6IjU4ODdjMTZmLWJhMmQtNGE3MS1iNjNhLWQ3ZTA2MzBjNjY3NiIsInVuaXF1ZV9uYW1lIjoidXNlckB1c2VyLmNsIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoidXNlciIsImV4cCI6MTcyNjUxNjg0NSwiaXNzIjoieW91cklzc3VlcjEyMyIsImF1ZCI6InlvdXJBdWRpZW5jZTEyMyJ9.suH1HC1D82MvGt2NklWX8ClS-8JAIs1VsZ6F9DXx5es",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5093/api/User/Roles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5093",
+							"path": [
+								"api",
+								"User",
+								"Roles"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5093/api/User/Roles",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5093",
+									"path": [
+										"api",
+										"User",
+										"Roles"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 16 Sep 2024 19:31:28 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 2,\n        \"name\": \"admin\"\n    },\n    {\n        \"id\": 3,\n        \"name\": \"moderator\"\n    },\n    {\n        \"id\": 4,\n        \"name\": \"user\"\n    }\n]"
 						}
 					]
 				},
