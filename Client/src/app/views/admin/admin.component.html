@@ -41,7 +41,7 @@
       <section>
         <label for="passwordConfirm">Confirm Password:</label>
         <input
-          type="passwordConfirm"
+          type="password"
           class="form-control"
           id="passwordConfirm"
           name="passwordConfirm"
@@ -52,6 +52,7 @@
       <section>
         <label for="rol">Rol:</label>
         <select name="rol" [(ngModel)]="role_id" id="rol" class="form-control">
+          <option *ngIf="id == 0" value="0">-- Select a rol --</option>
           <option *ngFor="let rol of roles()" [value]="rol.id">
             {{ rol.name }}
           </option>

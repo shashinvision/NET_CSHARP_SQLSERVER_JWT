@@ -17,7 +17,7 @@ export class LoginService implements IloginService {
 
   baseUrl = environment.apiUrl;
   currentUser = signal<LoginResponseDto | null>(null);
-  roles = computed(() => {
+  userRoles = computed(() => {
     const user = this.currentUser();
     if (user && user.user_jwt) {
       try {

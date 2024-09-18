@@ -63,7 +63,7 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
-            @if(login.roles().includes('admin')){
+            @if(login.userRoles().includes('admin')){
             <li class="nav-item">
               <a
                 routerLink="admin"

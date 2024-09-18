@@ -82,6 +82,7 @@ export class AdminComponent implements OnInit {
     userAddDto.name = this.name;
     userAddDto.role_id = this.role_id;
     userAddDto.password = this.password;
+
     if (this.id == 0) {
       this.userAdd(userAddDto);
     } else {
@@ -164,14 +165,17 @@ export class AdminComponent implements OnInit {
 
   openModal(action: string, user?: UserDto) {
 
+    this.cleanModalAdd();
+    this.getRoles();
+
     if (action == 'add') {
-      this.cleanModalAdd();
+
       this.modalHeader = 'Add User';
       this.displayModal = true;
-    } else if (action == 'edit') {
-      this.cleanModalAdd();
-      this.modalHeader = 'Update User';
 
+    } else if (action == 'edit') {
+
+      this.modalHeader = 'Update User';
       if (user) {
         this.id = user.id;
         this.name = user.name;
@@ -179,6 +183,7 @@ export class AdminComponent implements OnInit {
       }
 
       this.displayModal = true;
+
     }
 
   }
