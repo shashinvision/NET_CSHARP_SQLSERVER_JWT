@@ -71,12 +71,10 @@ export class AdminComponent implements OnInit {
 
   async saveUser() {
 
-    if (this.name == '') return this.showError("Name is required");
-    if (this.name && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(this.name)) return this.showError("Invalid email");
-    if (this.password == '') return this.showError("Password is required");
-    if (this.password.length < 8) return this.showError("Password must be at least 8 characters long");
-    if (this.password != this.passwordConfirm) return this.showError("Passwords do not match");
-    if (this.role_id == 0) return this.showError("Role is required");
+    let errors = this.validateInputs();
+    if (errors > 0) {
+      return;
+    }
 
     let userAddDto = new UserAddDto();
 
@@ -90,6 +88,38 @@ export class AdminComponent implements OnInit {
       this.userUpdate(userAddDto);
     }
 
+  }
+
+  validateInputs() {
+    let errors = 0;
+    if (this.name == '') {
+      errors++;
+      this.showError("Name is required");
+    }
+    if (this.name && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(this.name)) {
+      errors++;
+      this.showError("Invalid email address");
+    }
+    if (this.id == 0) {
+      if (this.password == '') {
+        errors++;
+        this.showError("Password is required");
+      }
+      if (this.password.length < 8) {
+        errors++;
+        this.showError("Password must be at least 8 characters");
+      }
+      if (this.password != this.passwordConfirm) {
+        errors++;
+        this.showError("Passwords do not match");
+      }
+    }
+    if (this.role_id == 0) {
+      errors++;
+      this.showError("Role is required");
+    }
+
+    return errors;
   }
 
   userAdd(userAddDto: UserAddDto) {
@@ -152,6 +182,7 @@ export class AdminComponent implements OnInit {
     }
 
   }
+
 
 }
 

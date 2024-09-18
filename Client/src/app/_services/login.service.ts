@@ -88,6 +88,7 @@ export class LoginService implements IloginService {
         }
       );
     } else {
+      console.error("No user found in local storage");
       this.router.navigate(['/login']);
     }
   }

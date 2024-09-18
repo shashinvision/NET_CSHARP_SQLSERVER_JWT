@@ -7,7 +7,12 @@
     [itemActive]="itemActive"
   ></app-content-header>
   <p-toast></p-toast>
-  <p-dialog header="{{modalHeader}}" [(visible)]="displayModal" [modal]="true">
+  <p-dialog
+    header="{{ modalHeader }}"
+    [(visible)]="displayModal"
+    (onHide)="cleanModalAdd()"
+    [modal]="true"
+  >
     <form method="post" (ngSubmit)="saveUser()">
       <section>
         <label for="name">Email:</label>
@@ -19,8 +24,7 @@
           pInputText
           [(ngModel)]="name"
           placeholder="Enter an valid email"
-            [attr.required]="id !== 0"
-            [attr.disabled]="id === 0"
+          [attr.disabled]="id != 0 ? '' : null"
         />
       </section>
       <section>
@@ -120,7 +124,10 @@
                 <td class="text-center"><i class="pi pi-times"></i></td>
                 }
                 <td class="">
-                  <button class="btn btn-primary mx-1" (click)="openModal('edit', user)">
+                  <button
+                    class="btn btn-primary mx-1"
+                    (click)="openModal('edit', user)"
+                  >
                     Edit <i class="pi pi-file-edit"></i>
                   </button>
                   @if (user.status) {
