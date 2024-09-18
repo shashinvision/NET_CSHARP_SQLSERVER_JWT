@@ -150,6 +150,32 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  deactivate(id: number) {
+    this.userService.deactivate(id).subscribe({
+      next: async (response) => {
+        console.log('User deactivated successfully:', response);
+        this.getUsers();  // Refresh users after adding a new one
+      },
+      error: (err) => {
+        console.error('Failed to deactivate user:', err);
+        alert('Failed to deactivate user, please try again.');
+      }
+    });
+  }
+
+  activate(id: number) {
+    this.userService.activate(id).subscribe({
+      next: async (response) => {
+        console.log('User activated successfully:', response);
+        this.getUsers();  // Refresh users after adding a new one
+      },
+      error: (err) => {
+        console.error('Failed to activate user:', err);
+        alert('Failed to activate user, please try again.');
+      }
+    });
+  }
+
   getRoles() {
     this.userService.getRoles();
     this.roles = this.userService.roles;

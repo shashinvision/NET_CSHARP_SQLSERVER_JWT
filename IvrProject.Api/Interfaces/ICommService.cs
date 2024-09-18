@@ -7,6 +7,6 @@ public interface ICommService<TEntity, TEntityDto, TInsertDto>
     public Task<TEntityDto> GetByName(string userName);
     public Task<TInsertDto> Add(TEntity entity);
     public Task<TEntityDto> Update(TEntity entity);
-    public Task<TEntityDto> Delete(int id);
-    
+    public Task<TEntityDto> Deactivate(int id);
+
 }

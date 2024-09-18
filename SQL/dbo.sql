@@ -12,7 +12,7 @@
  Target Server Version : 16004135 (16.00.4135)
  File Encoding         : 65001
 
- Date: 09/09/2024 20:33:41
+ Date: 18/09/2024 09:39:29
 */
 
 
@@ -45,10 +45,13 @@ GO
 INSERT INTO [dbo].[roles] ([id], [name]) VALUES (N'2', N'admin')
 GO
 
-INSERT INTO [dbo].[roles] ([id], [name]) VALUES (N'3', N'supervisor')
+INSERT INTO [dbo].[roles] ([id], [name]) VALUES (N'3', N'moderator')
 GO
 
 INSERT INTO [dbo].[roles] ([id], [name]) VALUES (N'4', N'user')
+GO
+
+INSERT INTO [dbo].[roles] ([id], [name]) VALUES (N'1003', N'asistant')
 GO
 
 SET IDENTITY_INSERT [dbo].[roles] OFF
@@ -86,7 +89,13 @@ GO
 SET IDENTITY_INSERT [dbo].[token_refresh] ON
 GO
 
+INSERT INTO [dbo].[token_refresh] ([id], [id_user], [refresh_token], [expire]) VALUES (N'1002', N'1', N'94b18ab3-edee-486e-b303-e5ed9fb139f7', N'2024-09-23 18:11:39.617')
+GO
+
 INSERT INTO [dbo].[token_refresh] ([id], [id_user], [refresh_token], [expire]) VALUES (N'9', N'1', N'946391de-a553-4fcb-8648-12f20f52d76c', N'2024-09-14 13:09:26.950')
+GO
+
+INSERT INTO [dbo].[token_refresh] ([id], [id_user], [refresh_token], [expire]) VALUES (N'10', N'14', N'dd827644-4c41-472b-991d-e812eaeff8cc', N'2024-09-18 13:49:17.167')
 GO
 
 SET IDENTITY_INSERT [dbo].[token_refresh] OFF
@@ -128,7 +137,7 @@ GO
 INSERT INTO [dbo].[users] ([id], [name], [password], [role_id], [status]) VALUES (N'1', N'admin@admin.cl', N'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', N'2', N'1')
 GO
 
-INSERT INTO [dbo].[users] ([id], [name], [password], [role_id], [status]) VALUES (N'14', N'user2@example.cl', N'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', N'4', N'1')
+INSERT INTO [dbo].[users] ([id], [name], [password], [role_id], [status]) VALUES (N'14', N'user@user.cl', N'73l8gRjwLftklgfdXT+MdiMEjJwGPVMsyVxe16iYpk8=', N'3', N'1')
 GO
 
 INSERT INTO [dbo].[users] ([id], [name], [password], [role_id], [status]) VALUES (N'1016', N'supervisor2@example.cl', N'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', N'3', N'1')
@@ -146,22 +155,27 @@ GO
 INSERT INTO [dbo].[users] ([id], [name], [password], [role_id], [status]) VALUES (N'13', N'user@example.net', N'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', N'4', N'1')
 GO
 
-INSERT INTO [dbo].[users] ([id], [name], [password], [role_id], [status]) VALUES (N'15', N'user3@example.cl', N'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', N'4', N'0')
+INSERT INTO [dbo].[users] ([id], [name], [password], [role_id], [status]) VALUES (N'15', N'user3@example.cl', N'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', N'4', N'1')
 GO
 
-INSERT INTO [dbo].[users] ([id], [name], [password], [role_id], [status]) VALUES (N'2017', N'felipe@felipe.cl', N'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', N'2', N'1')
-GO
-
-INSERT INTO [dbo].[users] ([id], [name], [password], [role_id], [status]) VALUES (N'2018', N'felipe2@felipe.cl', N'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', N'2', N'1')
-GO
-
-INSERT INTO [dbo].[users] ([id], [name], [password], [role_id], [status]) VALUES (N'2019', N'felipe4@felipe.cl', N'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', N'2', N'1')
+INSERT INTO [dbo].[users] ([id], [name], [password], [role_id], [status]) VALUES (N'3029', N'user_front_5@example.cl', N'pmWkWSBCL51Bfkhn79xPuKBKHz//H6B+mY6G9/eieuM=', N'3', N'1')
 GO
 
 SET IDENTITY_INSERT [dbo].[users] OFF
 GO
 
 COMMIT
+GO
+
+
+-- ----------------------------
+-- View structure for VW_ROLES_GET
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[VW_ROLES_GET]') AND type IN ('V'))
+	DROP VIEW [dbo].[VW_ROLES_GET]
+GO
+
+CREATE VIEW [dbo].[VW_ROLES_GET] AS SELECT id, name FROM roles;
 GO
 
 
@@ -175,8 +189,7 @@ GO
 CREATE VIEW [dbo].[VW_USERS_GET] AS SELECT u.id, u.name, u.role_id, r.name as role_name, u.status 
 	FROM users as u
 	LEFT JOIN roles as r
-		ON u.role_id = r.id
-	WHERE u.status = 1;
+		ON u.role_id = r.id;
 GO
 
 
@@ -220,7 +233,6 @@ SELECT top 1 u.id, u.name, u.role_id, r.name as role_name, u.status
 	LEFT JOIN roles as r
 		ON u.role_id = r.id
 	WHERE u.id = @id
-	AND u.status = 1 
 	order by u.id asc;
 END
 GO
@@ -243,7 +255,6 @@ BEGIN
 		LEFT JOIN roles as r
 			ON u.role_id = r.id
 		WHERE lower(u.name) = @name
-		AND u.status = 1 
 		order by u.id asc;
 	
 END
@@ -323,13 +334,13 @@ GO
 
 
 -- ----------------------------
--- procedure structure for SP_USER_DELETE
+-- procedure structure for SP_USER_DEACTIVATE
 -- ----------------------------
-IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SP_USER_DELETE]') AND type IN ('P', 'PC', 'RF', 'X'))
-	DROP PROCEDURE[dbo].[SP_USER_DELETE]
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SP_USER_DEACTIVATE]') AND type IN ('P', 'PC', 'RF', 'X'))
+	DROP PROCEDURE[dbo].[SP_USER_DEACTIVATE]
 GO
 
-CREATE PROCEDURE [dbo].[SP_USER_DELETE]
+CREATE PROCEDURE [dbo].[SP_USER_DEACTIVATE]
  @id as int
 AS
 BEGIN
@@ -430,9 +441,35 @@ GO
 
 
 -- ----------------------------
+-- procedure structure for SP_USER_ACTIVATE
+-- ----------------------------
+IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[SP_USER_ACTIVATE]') AND type IN ('P', 'PC', 'RF', 'X'))
+	DROP PROCEDURE[dbo].[SP_USER_ACTIVATE]
+GO
+
+CREATE PROCEDURE [dbo].[SP_USER_ACTIVATE]
+ @id as int
+AS
+BEGIN
+
+UPDATE users SET status = 1 WHERE id = @id;
+
+SELECT top 1 u.id, u.name, u.role_id, r.name as role_name, u.status 
+	FROM users as u
+	LEFT JOIN roles as r
+		ON u.role_id = r.id
+	WHERE u.id = @id
+	order by u.id asc;
+
+
+END
+GO
+
+
+-- ----------------------------
 -- Auto increment value for roles
 -- ----------------------------
-DBCC CHECKIDENT ('[dbo].[roles]', RESEED, 1001)
+DBCC CHECKIDENT ('[dbo].[roles]', RESEED, 1003)
 GO
 
 
@@ -467,7 +504,7 @@ GO
 -- ----------------------------
 -- Auto increment value for token_refresh
 -- ----------------------------
-DBCC CHECKIDENT ('[dbo].[token_refresh]', RESEED, 9)
+DBCC CHECKIDENT ('[dbo].[token_refresh]', RESEED, 1002)
 GO
 
 
@@ -493,7 +530,7 @@ GO
 -- ----------------------------
 -- Auto increment value for users
 -- ----------------------------
-DBCC CHECKIDENT ('[dbo].[users]', RESEED, 2019)
+DBCC CHECKIDENT ('[dbo].[users]', RESEED, 3030)
 GO
 
 

@@ -899,7 +899,7 @@
 					]
 				},
 				{
-					"name": "Delete User",
+					"name": "Deactivate User",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -1008,6 +1008,119 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"id\": 15,\n    \"name\": \"user3@example.cl\",\n    \"role_id\": 4,\n    \"role_name\": \"user\",\n    \"status\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "Activate User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwianRpIjoiZmY4OWU4ZTEtNWJhZC00NTU4LTk0ZGUtOGU0NTFhYmRmYmM2IiwidW5pcXVlX25hbWUiOiJhZG1pbkBhZG1pbi5jbCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwiZXhwIjoxNzI2NjY0NTA1LCJpc3MiOiJ5b3VySXNzdWVyMTIzIiwiYXVkIjoieW91ckF1ZGllbmNlMTIzIn0.0eOr5yB5BOom5_37EAZ_qTAg1ZcN5pWr2qf0gqKP_gQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5093/api/User/User/15",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5093",
+							"path": [
+								"api",
+								"User",
+								"User",
+								"15"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Activate User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5093/api/User/User/15",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5093",
+									"path": [
+										"api",
+										"User",
+										"User",
+										"15"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 18 Sep 2024 12:38:32 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 15,\n    \"name\": \"user3@example.cl\",\n    \"role_id\": 4,\n    \"role_name\": \"user\",\n    \"status\": 1\n}"
 						}
 					]
 				}

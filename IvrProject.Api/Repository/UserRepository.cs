@@ -264,7 +264,7 @@ public class UserRepository : DbContext
 
 
     }
-    public async Task<UserDto> DeleteUser(int idUser)
+    public async Task<UserDto> DeactivateUser(int idUser)
     {
 
         UserDto userByID = await GetUserById(idUser);
@@ -275,7 +275,50 @@ public class UserRepository : DbContext
 
         try
         {
-            string storedProcedure = "SP_USER_DELETE";
+            string storedProcedure = "SP_USER_DEACTIVATE";
+
+            // Use _connection from the father class
+            var userDto = await _connection.QuerySingleOrDefaultAsync<UserDto>(
+                storedProcedure,
+                new { id = idUser },
+                commandType: CommandType.StoredProcedure
+            );
+
+            if (userDto != null && userDto.name != null)
+            {
+                return userDto;
+            }
+            else
+            {
+                return null!;
+            }
+        }
+
+        catch (System.Exception ex)
+        {
+            Console.WriteLine("Error: " + ex.Message);
+            throw;
+        }
+        finally
+        {
+            Close();
+        }
+
+
+    }
+
+        public async Task<UserDto> ActivateUser(int idUser)
+    {
+
+        UserDto userByID = await GetUserById(idUser);
+
+        if (userByID == null || userByID.id == 0) return null!;
+
+        Connect();
+
+        try
+        {
+            string storedProcedure = "SP_USER_ACTIVATE";
 
             // Use _connection from the father class
             var userDto = await _connection.QuerySingleOrDefaultAsync<UserDto>(

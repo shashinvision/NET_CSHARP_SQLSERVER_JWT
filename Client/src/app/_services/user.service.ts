@@ -7,9 +7,10 @@ import { UserDto } from '../_models/UserDto';
 import { RolesDto } from '../_models/RolesDto';
 import { UserAddDto } from '../_models/UserAddDto';
 import { UserAddResponseDto } from '../_models/UserAddResponseDto';
+import { IRestStatusService } from '../_interfaces/IrestStatus.service';
 
 @Injectable()  // Not on root, use injector direct on Admin Component only
-export class UserService implements IRestService {
+export class UserService implements IRestService, IRestStatusService {
 
   private http = inject(HttpClient);
   baseUrl = environment.apiUrl;
@@ -53,8 +54,11 @@ export class UserService implements IRestService {
     return this.http.put<UserAddResponseDto>(this.baseUrl + 'User/User', userAddDto);
   }
 
-  delete(T: any): Observable<void> {
-    throw new Error('Method not implemented.');
+  deactivate(id : number): Observable<UserDto> {
+    return this.http.delete<UserDto>(this.baseUrl + 'User/User/' + id);
+  }
+  activate(id : number): Observable<UserDto> {
+    return this.http.post<UserDto>(this.baseUrl + 'User/User/' + id, null);
   }
 
   setUsers(users: UserDto[]) {

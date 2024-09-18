@@ -1,11 +1,9 @@
-using System;
 using IvrProject.Api.Model.DTOs;
-using IvrProject.Api.Model.Entities;
 using IvrProject.Api.Interfaces;
 using IvrProject.Api.Repository;
 namespace IvrProject.Api.Services;
 
-public class UsersService : ICommService<UserAddDto, UserDto, InsertedUserDto>, IRolesService
+public class UsersService : ICommService<UserAddDto, UserDto, InsertedUserDto>, IRolesService, IStatusService<UserDto>
 {
     private readonly UserRepository _userRepository;
     private readonly IConfiguration _configuration;
@@ -60,10 +58,18 @@ public class UsersService : ICommService<UserAddDto, UserDto, InsertedUserDto>, 
         return userDto;
     }
 
-    public async Task<UserDto> Delete(int idUser)
+    public async Task<UserDto> Deactivate(int idUser)
     {
 
-        UserDto userDto = await _userRepository.DeleteUser(idUser);
+        UserDto userDto = await _userRepository.DeactivateUser(idUser);
+
+        return userDto;
+
+    }
+    public async Task<UserDto> Activate(int idUser)
+    {
+
+        UserDto userDto = await _userRepository.ActivateUser(idUser);
 
         return userDto;
 

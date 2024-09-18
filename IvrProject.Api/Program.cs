@@ -17,6 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<ICommService<UserAddDto, UserDto, InsertedUserDto>, UsersService>();
 builder.Services.AddScoped<IRolesService, UsersService>();
+builder.Services.AddScoped<IStatusService< UserDto>, UsersService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
