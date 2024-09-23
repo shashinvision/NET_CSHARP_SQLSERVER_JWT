@@ -28,4 +28,8 @@ export class SidebarComponent implements OnInit {
 
   }
 
+  isActive(): boolean {
+    return this._router.url.includes('dashboard');
+  }
+
 }

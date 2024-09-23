@@ -104,11 +104,11 @@
           >
             <ng-template pTemplate="header">
               <tr>
-                <th class="text-center">ID</th>
-                <th class="text-center">Email</th>
-                <th class="text-center">Role ID</th>
-                <th class="text-center">Role Name</th>
-                <th class="text-center">Status</th>
+                <th class="text-center" pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+                <th class="text-center" pSortableColumn="name">Email <p-sortIcon field="name"></p-sortIcon></th>
+                <th class="text-center" pSortableColumn="role_id">Role ID <p-sortIcon field="role_id"></p-sortIcon></th>
+                <th class="text-center" pSortableColumn="role_name">Role Name <p-sortIcon field="role_name"></p-sortIcon></th>
+                <th class="text-center" pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
                 <th>Actions</th>
               </tr>
             </ng-template>

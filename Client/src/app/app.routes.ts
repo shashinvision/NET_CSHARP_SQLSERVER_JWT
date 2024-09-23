@@ -10,7 +10,7 @@ import { ErrorComponent } from './views/error/error.component';
 
 export const routes: Routes = [
   {
-    path: 'home',
+    path: 'dashboard/home',
     canActivate: [authGuard],
     component: HomeComponent
   },
