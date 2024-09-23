@@ -52,8 +52,8 @@
       <section>
         <label for="rol">Rol:</label>
         <select name="rol" [(ngModel)]="role_id" id="rol" class="form-control">
-          <option *ngIf="id == 0" value="0">-- Select a rol --</option>
-          <option *ngFor="let rol of roles()" [value]="rol.id">
+          <option value="0">-- Select a role --</option>
+          <option *ngFor="let rol of roles()" [ngValue]="rol.id">
             {{ rol.name }}
           </option>
         </select>
