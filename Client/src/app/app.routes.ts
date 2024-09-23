@@ -10,6 +10,11 @@ import { ErrorComponent } from './views/error/error.component';
 
 export const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'dashboard/home',
+    pathMatch: 'full'
+  },
+  {
     path: 'dashboard/home',
     canActivate: [authGuard],
     component: HomeComponent
