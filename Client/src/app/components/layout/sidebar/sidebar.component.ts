@@ -29,7 +29,12 @@ export class SidebarComponent implements OnInit {
   }
 
   isActive(): boolean {
-    return this._router.url.includes('dashboard');
+    let state = false;
+
+    if (this.currentUrl === '/home') {
+      state = true;
+    }
+    return state;
   }
 
 }

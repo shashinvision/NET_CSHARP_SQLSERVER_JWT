@@ -43,7 +43,7 @@
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
       </li>
-      @if(login.userRoles().includes('admin')){
+      @if(login.currentUser()) {
         <li class="nav-item d-none d-sm-inline-block">
           <a routerLink="logout" class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </li>
