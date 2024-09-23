@@ -8,6 +8,7 @@ import { NavComponent } from './components/layout/nav/nav.component';
 import { ControlComponent } from './components/layout/control/control.component';
 import { LoginService } from './_services/login.service';
 import { FilterMatchMode, PrimeNGConfig } from 'primeng/api';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -19,7 +20,8 @@ import { FilterMatchMode, PrimeNGConfig } from 'primeng/api';
     SidebarComponent,
     FooterComponent,
     NavComponent,
-    ControlComponent
+    ControlComponent,
+    CommonModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

@@ -93,6 +93,25 @@ export class LoginService implements IloginService {
     }
   }
 
+  jwtTime(token: string) {
+    try {
+      const decodedToken = JSON.parse(atob(token.split('.')[1]));
+      return decodedToken;
+    } catch (error) {
+      console.error('Failed to parse JWT:', error);
+      return null;
+    }
+  }
+  jwtExpirationTime(): boolean{
+    const token =  this.currentUser()?.user_jwt;
+    if (token) {
+      const decodedToken = this.jwtTime(token);
 
+      if (decodedToken && decodedToken.exp < Date.now() / 1000) {
+        return true;
+      }
+    }
+    return false;
+  }
 
 }

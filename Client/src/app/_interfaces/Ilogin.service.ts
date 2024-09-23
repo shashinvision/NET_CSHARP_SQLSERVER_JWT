@@ -6,4 +6,5 @@ export interface IloginService {
   login(loginDto: LoginDto): Observable<void>;
   logout(): void;
   currentUser(): LoginResponseDto | null;
+  jwtExpirationTime(token: string): boolean;
 }

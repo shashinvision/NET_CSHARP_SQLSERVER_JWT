@@ -1,5 +1,5 @@
 <router-outlet>
-  @if (_loginService.currentUser() !== null) {
+  @if (_loginService.currentUser() !== null && !_loginService.jwtExpirationTime()) {
 
   <app-nav></app-nav>
 
