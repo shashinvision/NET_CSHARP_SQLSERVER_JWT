@@ -1,12 +1,10 @@
 <router-outlet>
-  @if (_loginService.currentUser() !== null && !_loginService.jwtExpirationTime()) {
-
+  @if (_loginService.currentUser() !== null &&
+  !_loginService.jwtExpirationTime()) {
   <app-nav></app-nav>
 
   <app-sidebar></app-sidebar>
-
   <!-- Automatically injected components with my views components, Based on content component on Layout path -->
-
   <app-control></app-control>
 
   <app-footer></app-footer>
