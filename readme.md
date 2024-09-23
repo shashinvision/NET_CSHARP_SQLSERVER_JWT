@@ -84,3 +84,11 @@ The project is organized into the following namespaces:
 To get started with this project, you'll need to have a SQL Server database set up and configure the connection string in the project settings. You can then run the API and use tools like Postman to test the authentication endpoints.
 
 Note that this is just a starting point, and you may want to add more details to the README as the project evolves.
+
+**Angular Client:**
+- Version 10.8.2
+
+```bash
+cd Client
+npm install
+```
