@@ -9,7 +9,11 @@ import { ErrorComponent } from './views/error/error.component';
 
 
 export const routes: Routes = [
-
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
   {
     path: 'home',
     canActivate: [authGuard],
