@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {
   SidebarComponent
@@ -28,14 +28,15 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent implements OnInit {
   title = 'Client';
-  isLoggedIn = false;
   _loginService: LoginService;
 
   constructor(loginService: LoginService, private primengConfig: PrimeNGConfig) {
     this._loginService = loginService;
   }
 
+
   ngOnInit() {
+
     this.primengConfig.ripple = true;
     this.primengConfig.zIndex = {
       modal: 1100,
