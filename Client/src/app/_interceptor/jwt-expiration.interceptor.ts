@@ -4,23 +4,27 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 export const jwtExpirationInterceptor: HttpInterceptorFn = (req, next) => {
-
   const loginService = inject(LoginService);
-  const router = inject(Router);  // Injecting the router to navigate if needed
+  const router = inject(Router);
 
   if (loginService.currentUser() && loginService.jwtExpirationTime()) {
-    handleExpiredToken(loginService, router);
-    window.location.reload();
+    // Only refresh if not already refreshing
+    if (!loginService.isRefreshing) {
+      handleExpiredToken(loginService, router);
+    }
   }
-  return next(req);
 
+  return next(req);
 };
 
-function handleExpiredToken(loginService: LoginService, router: Router): void {
-  // Try to refresh the token or redirect to the login page
+function handleExpiredToken(loginService: LoginService, router: Router) {
   loginService.refreshToken();
-  // if the refresh token is expired too, then redirect to login page
-  if (loginService.currentUser() == null) {
-    router.navigate(['/login']);
-  }
+
+  // Check if the user is still authenticated after trying to refresh
+  setTimeout(() => {
+    if (loginService.currentUser() == null) {
+      router.navigate(['/login']);
+    }
+  }, 1000); // Delay to allow refresh to complete
 }
+

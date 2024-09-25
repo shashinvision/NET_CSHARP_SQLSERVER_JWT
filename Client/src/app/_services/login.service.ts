@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class LoginService implements IloginService {
   private http = inject(HttpClient);
   private router = inject(Router);
+  public isRefreshing = false;
 
   baseUrl = environment.apiUrl;
   currentUser = signal<LoginResponseDto | null>(null);
@@ -75,31 +76,36 @@ export class LoginService implements IloginService {
   }
 
   refreshToken() {
+    if (this.isRefreshing) return; // Avoid re-entrance
+    this.isRefreshing = true;
 
-    let userLocalStorage = localStorage.getItem('user');
+    const userLocalStorage = localStorage.getItem('user');
 
     if (userLocalStorage) {
-      let userRefresh = JSON.parse(userLocalStorage);
-      this.http.post<LoginResponseDto>(this.baseUrl + 'Auth/refreshtoken', { refreshToken: userRefresh.refreshToken }).subscribe(
-        {
+      const userRefresh = JSON.parse(userLocalStorage);
+      this.http.post<LoginResponseDto>(`${this.baseUrl}Auth/refreshtoken`, { refreshToken: userRefresh.refreshToken })
+        .subscribe({
           next: loginResponseDto => {
             if (loginResponseDto) {
               this.setCurrentUser(loginResponseDto);
             }
+            this.isRefreshing = false;
           },
           error: error => {
             console.error('Refresh token error:', error);
             this.logout();
             this.router.navigate(['/login']);
+            this.isRefreshing = false;
           }
-        }
-      );
+        });
     } else {
       console.error("No user found in local storage");
       this.logout();
       this.router.navigate(['/login']);
+      this.isRefreshing = false;
     }
   }
+
 
   jwtTime(token: string) {
     try {
@@ -111,7 +117,6 @@ export class LoginService implements IloginService {
     }
   }
   jwtExpirationTime(): boolean{
-    console.log("Expiration time check");
     const token =  this.currentUser()?.user_jwt;
     if (token) {
       const decodedToken = this.jwtTime(token);
