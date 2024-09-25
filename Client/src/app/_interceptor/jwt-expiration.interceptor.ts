@@ -8,14 +8,11 @@ export const jwtExpirationInterceptor: HttpInterceptorFn = (req, next) => {
   const loginService = inject(LoginService);
   const router = inject(Router);  // Injecting the router to navigate if needed
 
-    if (loginService.jwtExpirationTime()) {
-      handleExpiredToken(loginService, router);
-      return next(req);  // Continue the request after handling the token expiration
-
+  if (loginService.currentUser() && loginService.jwtExpirationTime()) {
+    handleExpiredToken(loginService, router);
   }
-
-  // Pass the request to the next handler if no token issues
   return next(req);
+
 };
 
 
@@ -23,6 +20,7 @@ export const jwtExpirationInterceptor: HttpInterceptorFn = (req, next) => {
 function handleExpiredToken(loginService: LoginService, router: Router) {
   // Try to refresh the token or redirect to the login page
   loginService.refreshToken();
+  // consult the login service to see if the token has been refreshed
   if (loginService.currentUser() == null) {
     router.navigate(['/login']);
   }

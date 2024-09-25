@@ -5,7 +5,6 @@ import { LoginResponseDto } from '../_models/LoginResponseDto';
 import { map, catchError, throwError, Observable } from 'rxjs';
 import { IloginService } from '../_interfaces/Ilogin.service';
 import { environment } from '../../environments/environment.development';
-import { routes } from '../app.routes';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -83,12 +82,14 @@ export class LoginService implements IloginService {
           },
           error: error => {
             console.error('Refresh token error:', error);
+            this.logout();
             this.router.navigate(['/login']);
           }
         }
       );
     } else {
       console.error("No user found in local storage");
+      this.logout();
       this.router.navigate(['/login']);
     }
   }
