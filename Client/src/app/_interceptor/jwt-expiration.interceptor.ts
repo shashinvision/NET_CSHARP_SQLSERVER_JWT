@@ -22,6 +22,6 @@ function handleExpiredToken(loginService: LoginService, router: Router) {
   loginService.refreshToken();
   // consult the login service to see if the token has been refreshed
   if (loginService.currentUser() == null) {
-    router.navigate(['/login']);
+    router.navigate(['/']);
   }
 }
