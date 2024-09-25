@@ -1,4 +1,4 @@
-@if (_loginService.currentUser()  )
+@if (_loginService.currentUser()  && !_loginService.jwtExpirationTime())
 {
 <app-nav></app-nav>
 
@@ -8,7 +8,7 @@
 
 <router-outlet> </router-outlet>
 
-@if (_loginService.currentUser())
+@if (_loginService.currentUser() && !_loginService.jwtExpirationTime())
 {
 
 <app-control></app-control>
