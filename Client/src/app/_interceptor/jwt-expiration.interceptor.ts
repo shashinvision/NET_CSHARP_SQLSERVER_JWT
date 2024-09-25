@@ -10,18 +10,17 @@ export const jwtExpirationInterceptor: HttpInterceptorFn = (req, next) => {
 
   if (loginService.currentUser() && loginService.jwtExpirationTime()) {
     handleExpiredToken(loginService, router);
+    window.location.reload();
   }
   return next(req);
 
 };
 
-
-
-function handleExpiredToken(loginService: LoginService, router: Router) {
+function handleExpiredToken(loginService: LoginService, router: Router): void {
   // Try to refresh the token or redirect to the login page
   loginService.refreshToken();
-  // consult the login service to see if the token has been refreshed
+  // if the refresh token is expired too, then redirect to login page
   if (loginService.currentUser() == null) {
-    router.navigate(['/']);
+    router.navigate(['/login']);
   }
 }

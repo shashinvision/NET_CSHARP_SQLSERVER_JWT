@@ -62,8 +62,15 @@ export class LoginService implements IloginService {
 
   checkCurrentUser() {
     const storedUser = localStorage.getItem('user');
+
     if (storedUser) {
-      this.currentUser.set(JSON.parse(storedUser));
+      const userJson = JSON.parse(storedUser);
+      const user = new LoginResponseDto();
+
+      user.user_jwt = userJson.user_jwt;
+      user.refreshToken = userJson.refreshToken;
+
+      this.currentUser.set(user);
     }
   }
 
@@ -104,11 +111,13 @@ export class LoginService implements IloginService {
     }
   }
   jwtExpirationTime(): boolean{
+    console.log("Expiration time check");
     const token =  this.currentUser()?.user_jwt;
     if (token) {
       const decodedToken = this.jwtTime(token);
 
       if (decodedToken && decodedToken.exp < Date.now() / 1000) {
+        console.log("Expiration Time Expired");
         return true;
       }
     }
